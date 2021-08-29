@@ -1264,10 +1264,10 @@ npm install crypto-browserify stream-browserify -S
 
 ```typescript:src/polyfills.ts
 import 'zone.js';
-(window as any).global = window; // crypto, streamの問題解決のため追加
+(window as any).global = window; // global is not definedの問題解決のため追加
 ```
 
-ここまでできると、`ng serve`して、[http://localhost:4200/explorer/accounts/NDLXI3OMXJCHO2A2ZD54TO4UZJQQV36DQYK33SA](http://localhost:4200/explorer/accounts/NDLXI3OMXJCHO2A2ZD54TO4UZJQQV36DQYK33SA)にアクセスしてみると、ブラウザの開発者ツールに以下のように表示される状態になりました。
+ここまでできると、`ng serve`して、[http://localhost:4200/explorer/accounts/NDLXI3OMXJCHO2A2ZD54TO4UZJQQV36DQYK33SA](http://localhost:4200/explorer/accounts/NDLXI3OMXJCHO2A2ZD54TO4UZJQQV36DQYK33SA)にアクセスしてみると、ブラウザの開発者ツールにaccountのデータが表示される状態になりました。
 
 これで親コンポーネント上でアカウントの情報が取得できたので、後はこれを子コンポーネントに表示すればアカウント情報の表示が完成です。
 
