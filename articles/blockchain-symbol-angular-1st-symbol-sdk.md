@@ -15,7 +15,7 @@ published: false
 以下URLでサンプルコードを実際に動かしているので、必要に応じてご参照ください。
 
 - サンプルページ(ホームページ) [https://symbol-sample-angular.nemtus.com](https://symbol-sample-angular.nemtus.com)
-- サンプルページ(アカウント情報表示ページ) [https://symbol-sample-angular.nemtus.com/explorer/accounts/NDLXI3OMXJCHO2A2ZD54TO4UZJQQV36DQYK33SA](https://symbol-sample-angular.nemtus.com/explorer/accounts/NDLXI3OMXJCHO2A2ZD54TO4UZJQQV36DQYK33SA) ... URL末尾のアドレスを変更頂くことで、任意のアドレスの情報を表示できます。
+- サンプルページ(アカウント情報表示ページ) [https://symbol-sample-angular.nemtus.com/explorer/accounts/NDLXI3OMXJCHO2A2ZD54TO4UZJQQV36DQYK33SA](https://symbol-sample-angular.nemtus.com/explorer/accounts/NDLXI3OMXJCHO2A2ZD54TO4UZJQQV36DQYK33SA) ... URL末尾のアドレスを変更することで、任意のアドレスの情報を表示できます。
 - サンプルページのGitHubレポジトリ [https://github.com/nemtus/symbol-sample-angular](https://github.com/nemtus/symbol-sample-angular)
 
 ## 要約
@@ -32,7 +32,7 @@ published: false
 2. [https://qiita.com/sengoku/items/21dc21e0095dc3d9c0de#warning-module-not-found-error-cant-resolve-stream](https://qiita.com/sengoku/items/21dc21e0095dc3d9c0de#warning-module-not-found-error-cant-resolve-stream)
 3. [https://dev.classmethod.jp/articles/angular6-referenceerror/](https://dev.classmethod.jp/articles/angular6-referenceerror/)
 
-Angular, Symbolに既に慣れている方はここまでの情報で十分で、以下を読む必要は薄いかもしれませんが、Symbolブロックチェーンの説明や、htmlやJavaScriptやVueやReact等の一定レベルの経験がある方向けのAngularチュートリアル的な内容も含めたsymbol-sdkの使用方法のサンプル紹介等を以下に記載しています。
+Angular, Symbolに既に慣れている方はここまでの情報で十分で、以下を読む必要性は低いかもしれませんが、Symbolブロックチェーンの説明や、htmlやJavaScriptやVueやReact等の一定レベルの経験がある方向けのAngularチュートリアル的な内容も含めたsymbol-sdkの使用方法のサンプル紹介等を以下に記載しています。
 (書いている内に恐ろしい程の長文になってしまったのですが...)もしよろしければご参照の上、この機会に、Angularやrxjsの雰囲気や、Angularでsymbol-sdkをどのように使用するかのイメージをぜひ膨らませてみてください。
 
 ## 前提となる環境
@@ -48,14 +48,14 @@ Angular, Symbolに既に慣れている方はここまでの情報で十分で�
 
 ## Symbolとは
 
-Symbolとは、NEMブロックチェーンの次期バージョンとして、長い開発期間を経て、2021年3月17日にローンチされた、パブリックブロックチェーンです。
+Symbolとは、NEMブロックチェーンの新世代バージョンとして、長い開発期間を経て、2021年3月17日にローンチされた、パブリックブロックチェーンです。
 
-Symbolの前バージョンのNEMには以下のような特徴がありました。
+Symbolの前バージョンのNEM(NIS1)には以下のような特徴がありました。
 
 - 利用しやすいAPI
 - 開発者が独自にコントラクトを実装せずとも利用可能なようにブロックチェーン自体に実装済の豊富な機能
 
-Symbolでは、前バージョンのNEMの良さを継承しつつ、以下のような大幅な機能追加と性能改善と設計の見直しが行われました。
+Symbolでは、前バージョンのNEM(NIS1)の良さを継承しつつ、以下のような大幅な機能追加と性能改善と設計の見直しが行われました。
 
 - 分散された多数のノードが自律的に維持されるようなインセンティブ設計
 - スケーラビリティ等の性能改善
@@ -77,13 +77,13 @@ API呼び出し等の処理を自前で実装しても良いのですが、以�
 - symbol-sdk npmパッケージ [https://www.npmjs.com/package/symbol-sdk](https://www.npmjs.com/package/symbol-sdk)
 - 公式ドキュメント symbol-sdk 使用方法ガイド アカウント情報取得 [https://docs.symbolplatform.com/ja/guides/account/getting-account-information.html#method-01-using-the-sdk](https://docs.symbolplatform.com/ja/guides/account/getting-account-information.html#method-01-using-the-sdk)
 
-なお、symbol-sdkでは、後述するrxjsが積極的に使用されています。rxjsは使いこなすことができると非常に便利なのですが、学習コストは高めで、積極的な使用には賛否が分かれるところではあるかと思います。好みによってはPromiseに置き換えて使用するという戦略もあるかもしれませんので、案件に応じてご検討頂くとよろしいかと思います。
+なお、symbol-sdkでは、後述するrxjsが積極的に使用されています。rxjsは使いこなすことができると非常に便利なのですが、学習コストは高めで、積極的な使用には賛否が分かれるところではあると思います。好みによってはPromiseに置き換えて使用するという戦略もあるかもしれませんので、案件に応じてご検討頂くとよろしいかと思います。
 
 ## rxjsとは
 
 前述の通り、symbol-sdkの中では、rxjsが積極的に利用されています。
 
-rxjsでは、非同期なデータを、川の流れのようなものをObservableという概念に見立てて、流れを生み出す機能や、流れをモニタリングして上流から流れを受け取って加工した上で下流に流す機能や、流れをモニタリングして何かが流れてきたら何らかの処理を行う機能等が提供されています。
+rxjsでは、非同期なデータを、Observableという川の流れのような概念に見立てて、流れを生み出す機能や、流れをモニタリングして上流から流れを受け取って加工した上で下流に流す機能や、流れをモニタリングして何かが流れてきたら何らかの処理を行う機能等が提供されています。
 
 Promise, Thenの仕組みが1回限りの非同期処理の完了を待って次の作業を行うのと似ていますが、rxjsでは1回限りではなく連続した流れを継続的に扱うための仕組みが提供されているとも言えるでしょう。
 
@@ -98,7 +98,7 @@ rxjs習得における個人的なおすすめは、基礎的な概念(≒Observ
 
 ## Angularとは
 
-AngularはReact, Vueと同様に、JavaScript(、より厳密に言うとAngularの場合、TypeScript)を用いたSPA(Single Page Application)フレームワークです。
+AngularはReact, Vueと同様に、JavaScript(より厳密に言うとAngularの場合、TypeScript)を用いたSPA(Single Page Application)フレームワークです。
 
 以下のように、Angularそれ自体が多くの機能を網羅していること、TypeScript, rxjsによるメリットが得られやすいといった点が特徴と言えるでしょう。
 
@@ -924,8 +924,8 @@ export class AccountComponent implements OnInit {
 :::
 
 実装をはじめる前にノード関連で注意すべき点があります。
-ローカルでの開発では、httpsなノードアドレスは使えないためhttpなノードアドレスを使う必要がありますが、実際にデプロイした場合、デプロイ先のWebアプリがhttpsの場合、ノードアドレスもhttpsを使う必要があるということです。
-そのため、ローカルでの開発時にはhttpなノードアドレスを、デプロイ先の本番環境ではhttpsなノードアドレスを使う必要があります。
+ローカルでの開発では、httpsプロトコルのノードアドレスは使えないため、httpプロトコルのノードアドレスを使う必要がありますが、実際にデプロイした場合、デプロイ先のWebアプリがhttpsの場合、ノードアドレスもhttpsを使う必要があるということです。
+そのため、ローカルでの開発時にはhttpプロトコルのノードアドレスを、デプロイ先の本番環境ではhttpsプロトコルのノードアドレスを使う必要があります。
 
 この違いはAngularの環境変数に設定して、コンポーネントやサービスでそれを参照する形で解決しておくことにします。(本格的な開発では、環境に応じて環境変数でフラグだけたてて、フラグに応じたノードの一覧を取得して、それを適宜利用するようなサービスを作ってそれを使用できるとより良いと思います。)
 
@@ -1210,7 +1210,7 @@ crypto-browserifyのエラーと同様に、上記URLの通り、`npm i stream-b
 
 - webpackのNode.jsのcrypto, streamモジュールの依存性解決の問題の解決 ... パッケージインストール＆`tsconfig.json`にパスを追記
 - global is not undefinedの問題の解決 ... `polyfills.ts`に`(window as any).global = window;`を追記
-- (bigintを使うためにES2020に対応できるよう設定を`tsconfig.json`に追記) ... symbol-sdkの導入に伴う問題ではなく、symbol-sdkのUInt64の型をTypeScriptのbiging型に変換してアプリ側で持つようにしたために発生した問題を解決するための手順であることには注意が必要です。bigint使わなければ不要です。
+- (bigintを使うためにES2020に対応できるよう設定を`tsconfig.json`に追記) ... symbol-sdkの導入に伴う問題ではなく、symbol-sdkのUInt64の型をTypeScriptのbiging型に変換してアプリ側で持つようにしたために発生した問題を解決するための手順であることには注意が必要です。bigintを使わなければ不要です。
 
 パッケージインストール
 
