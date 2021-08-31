@@ -959,7 +959,7 @@ symbol-sdkを使ってノードからアカウント情報を取得するサー�
 
 まずsymbol-sdkとrxjsをインストールします。Angularの場合、rxjsは既にインストールされていますが、以下手順通り`npm install symbol-sdk rxjs -S`を実行すると良いでしょう。
 
-symbol-sdk GitHubレポジトリ インストール手順 [https://github.com/symbol/symbol-sdk-typescript-javascript#installation]
+symbol-sdk GitHubレポジトリ インストール手順 [https://github.com/symbol/symbol-sdk-typescript-javascript#installation](https://github.com/symbol/symbol-sdk-typescript-javascript#installation)
 
 次にサービスを作成します。
 
