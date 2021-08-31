@@ -648,13 +648,13 @@ AccountComponentの作成
 
 1. `src/app/page/explorer/accounts`ディレクトリの作成
 1. `src/app/page/explorer/accounts`ディレクトリへ移動
-1. `ng g component accounts`コマンドを実行するとAccountComponent関連4ファイルが作成され、`src/app/app.module.ts`へのコンポーネントの登録が実行される
+1. `ng g component account`コマンドを実行するとAccountComponent関連4ファイルが作成され、`src/app/app.module.ts`へのコンポーネントの登録が実行される
 
 ViewAccountComponentの作成
 
 1. `src/app/view/explorer/accounts`ディレクトリの作成
 1. `src/app/view/explorer/accounts`ディレクトリへ移動
-1. `ng g component accounts`コマンドを実行するとViewAccountComponent関連4ファイルが作成されるが、ファイル内のコンポーネント名を`AccountComponent` -> `ViewAccountComponent`に変更し、selectorの箇所を`app-account` -> `app-view-account`に変更し、htmlファイル内の表示を`account works!` -> `view-account works!`に変更し、`src/app/app.module.ts`のdeclarationsの配列内に`ViewAccountComponent`を追加してコンポーネントを登録する。
+1. `ng g component account`コマンドを実行するとViewAccountComponent関連4ファイルが作成されるが、ファイル内のコンポーネント名を`AccountComponent` -> `ViewAccountComponent`に変更し、selectorの箇所を`app-account` -> `app-view-account`に変更し、htmlファイル内の表示を`account works!` -> `view-account works!`に変更し、`src/app/app.module.ts`のdeclarationsの配列内に`ViewAccountComponent`を追加してコンポーネントを登録する。
 
 親コンポーネントAccountComponentに、ViewAccountComponentを子コンポーネントとして表示
 
@@ -1398,7 +1398,7 @@ symbol-sdkを使うところは、一度サンプルコードを見て雰囲気�
 
 このように既存のWeb開発やアプリ開発のほんのわずかな延長線上で、ブロックチェーンの恩恵を手軽に受ける開発をできることがNEMやSymbolの強みだと思います。
 
-ただ、Angularデフォルトの設定の状態に、symbol-sdkをインストールして使おうとすると、最初に環境面の問題に遭遇すると思うので、その点は本記事の[要約](##要約)や[symbol-sdkをAngularで利用する際のエラー解消まとめ](##symbol-sdkをAngularで利用する際のエラー解消まとめ)を参考にしてくださいますと幸いです。
+ただ、Angularデフォルトの設定の状態に、symbol-sdkをインストールして使おうとすると、最初に環境面の問題に遭遇すると思うので、その点は本記事の[要約](#要約)や[symbol-sdkをAngularで利用する際のエラー解消まとめ](#symbol-sdkをAngularで利用する際のエラー解消まとめ)を参考にしてくださいますと幸いです。
 
 この記事が、Symbolを使ってWebサービスを開発しようと思っている方や、Angularにこれから入門しようと思っている方に取って、何らかの助けになれば幸いです。
 
