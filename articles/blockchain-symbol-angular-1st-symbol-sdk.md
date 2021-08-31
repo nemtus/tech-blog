@@ -3,7 +3,7 @@ title: "Symbol x Angular その1 Angularでsymbol-sdkを使うための環境構
 emoji: "⛓"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["blockchain", "symbol", "angular", "typescript", "rxjs"]
-published: false
+published: true
 ---
 
 # Angularでsymbol-sdkを使うための環境構築
