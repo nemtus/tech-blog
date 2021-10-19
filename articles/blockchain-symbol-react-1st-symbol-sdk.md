@@ -271,6 +271,29 @@ touch .prettierrc
 
 ![参考画像](/images/react-articles/blog1558.jpeg)
 
+一度このタイミングでnpm startをしてみましょう。
+エラーがなければよかったです！
+
+```sh
+npm start
+```
+
+:::message alert
+./src/index.css (./node_modules/css-loader/dist/cjs.js??ref--5-oneOf-4-1!./node_modules/postcss-loader/src??postcss!./src/index.css)
+Error: PostCSS plugin tailwindcss requires PostCSS 8.
+Migration guide for end-users:
+https://github.com/postcss/postcss/wiki/PostCSS-8-for-end-users
+
+このエラーが出た場合は以下の対策をとってほしいです。
+:::
+
+一旦tailwindcssのバージョンを落とそうといった感じです。
+
+```sh
+npm uninstall tailwindcss postcss autoprefixer
+npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+```
+
 ## Angular Flex-Layout導入
 
 ## Webアプリ全体のレイアウト実装
