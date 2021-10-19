@@ -333,7 +333,7 @@ npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-c
 機能的にはSymbol-SDKを使用したものが必要なのかな？という想定で
 実施します。
 
-- アドレスの生成
+- アカウントの生成
 - パブリックキーの取得
 - 保有モザイクの取得
 - インポータンスの取得
@@ -354,7 +354,100 @@ npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-c
 
 ## 機能開発のためにsymbol-sdkをインストールします
 
-## ホームページの実装
+[ここにインストール方法が書いています](https://github.com/symbol/symbol-sdk-typescript-javascript)
+
+```sh
+npm install symbol-sdk rxjs
+```
+
+これでインストールができてから動作確認をしましょう
+
+```sh
+npm start
+```
+
+ここでエラーが出た場合は教えてくださいね。
+
+[エラーはイシューとして作成して下さい](https://github.com/nemtus/symbol-sample-react/issues)
+
+[現在はこんな感じです。](https://github.com/nemtus/symbol-sample-react/tree/symbol-sdk-rxjs-install)
+
+## アカウントの生成
+
+さてさてまずは機能開発を実施しましょう。
+アドレスの生成です。
+
+松岡さんの記事を参考にするのであればURLの後ろにアドレスを付与すればいいのですが、
+今回はどうしようかな？
+そうですね、テストネットを使用するので皆さん好きな方法を採用してみてください。
+
+そもそもアドレスの生成方法はどのような方法があるのか？という話を考えます。
+
+Symbol-SDKでアカウントを作成する方法はいくつかあります。
+
+というわけなのでまずは機能を確認するだけなのでsrc/App.tsxにsymbol-sdkをimportしましょう。
+
+```src/App.tsx
+import { Account } from 'symbol-sdk'
+```
+
+![Accountでできること](/images/react-articles/Account.png)
+
+はい、というわけでアカウントの作成については
+写真のようにcreateFromPrivateKeyとgenerateNewAccountの二つの方法があります。
+
+[参考資料](https://docs.symbolplatform.com/ja/guides/account/creating-an-account.html)
+
+アドレスの表示については他の方法があるのですが、まずはアカウントの生成の部分を確認していきます。
+おそらくウォレットを何か作りたいなぁとなった時はまずは
+
+- 新規アカウントを作成するか
+- 秘密鍵からアカウントを作成するか？
+
+の２つの手段がとられると思います。
+
+:::message
+アプローチは人の数だけあると思いますが、
+今回はこんな感じです。
+:::
+
+新規アカウントを作る方法
+
+Symbol-SDKからアカウントを新規に作成する方法は
+AccountとNetworkTypeが必要になります
+
+```src/App.tsx
+import logo from './logo.svg'
+import './App.css'
+import { Account, NetworkType } from 'symbol-sdk'
+
+function App() {
+  const accountCreate = () => {
+    const account = Account.generateNewAccount(NetworkType.TEST_NET)
+    console.log(
+      'Your new account address is:',
+      account.address.pretty(),
+      'and its private key',
+      account.privateKey
+    )
+  }
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <button onClick={accountCreate}>アカウントの作成</button>
+      </header>
+    </div>
+  )
+}
+
+export default App
+```
+
+さてこれを実行するとこんな感じになります
+
+![アカウントの生成](/images/react-articles/accountGenerate.png)
 
 ## アカウント情報表示ページの実装
 
