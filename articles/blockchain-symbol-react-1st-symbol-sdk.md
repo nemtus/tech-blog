@@ -294,6 +294,9 @@ npm uninstall tailwindcss postcss autoprefixer
 npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
 ```
 
+現時点でのリポジトリはこちら
+[tailwindcss導入](https://github.com/nemtus/symbol-sample-react/tree/tailwind-css)
+
 ## Angular Flex-Layout導入
 
 ## Webアプリ全体のレイアウト実装
