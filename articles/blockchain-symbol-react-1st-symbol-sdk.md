@@ -297,9 +297,62 @@ npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-c
 現時点でのリポジトリはこちら
 [tailwindcss導入](https://github.com/nemtus/symbol-sample-react/tree/tailwind-css)
 
-## Angular Flex-Layout導入
+## アプリケーション作成のためのタスク管理
 
-## Webアプリ全体のレイアウト実装
+さてさて、これで環境構築ができました。
+正直ここを突破しないと何も続きができないので是非とも突破してほしいです。
+
+これ以降はタスクを一つずつ作成していき、そのタスクを処理していきます。
+これは個人的な感想ですが、タスクを作成して一つずつ処理していけばアプリはできるはずです。
+ただそのタスクを考える力やタスクを無心となって処理する力
+タスク自体の設定が間違っていたときに
+「詰まる」という状況になります。
+
+今回はGmailのアカウントを保有していればできる方法を採用します。
+
+[タスク管理](https://docs.google.com/spreadsheets/d/1-WTAIUGgQmJ34JLCK3tkPtZqv57FRAL9hrGggieKvig/edit?usp=sharing)
+
+## デザイン確認
+
+今回はサンプルアプリケーション（松岡さんが作成されたもの）
+をReactで作成する予定なのでデザインは簡単にできます。
+
+:::message
+個人的にデザインがイマイチだなと思った時がデザインを学ぶ時です。
+僕も色々試行錯誤はします。
+ですが最初は誰かが作ったものを真似するところからスタートします。
+:::
+
+以下デザインチェックを実施した資料になります。
+
+[デザインチェック](https://docs.google.com/presentation/d/1ayIrqPLpvPRRpsTsl8JnDY632EaCRklmF8PQZXjsYLk/edit?usp=sharing)
+
+## 機能確認
+
+次にどういった機能が必要なのかを考えます。
+機能的にはSymbol-SDKを使用したものが必要なのかな？という想定で
+実施します。
+
+- アドレスの生成
+- パブリックキーの取得
+- 保有モザイクの取得
+- インポータンスの取得
+
+の４つです。
+なのでこの時点でsymbolの機能で作成すべき内容が決まりました。
+
+タスク管理のオレンジの以下の部分を作成します。
+
+[タスク管理](https://docs.google.com/spreadsheets/d/1-WTAIUGgQmJ34JLCK3tkPtZqv57FRAL9hrGggieKvig/edit?usp=sharing)
+
+:::message
+一人で作成する場合は機能開発からすべきなのか？
+デザイン開発からすべきなのか？
+僕は機能開発からしています。
+あくまでも僕はです。
+:::
+
+## 機能開発のためにsymbol-sdkをインストールします
 
 ## ホームページの実装
 
