@@ -158,9 +158,118 @@ Happy hacking!
 ```
 
 なので楽しく開発しましょう！！
+
 ## 初回起動
 
-## Angular Material導入
+```sh
+$ npm start
+このコマンドでローカルのPC環境にアプリケーションを実行することができます
+```
+
+![初めてのローカルホスト](/images/react-articles/firstlocalhost.png)
+
+[ここまでのURL](https://github.com/nemtus/symbol-sample-react)
+
+
+## Tailwind CSS導入
+
+必要なモジュールのインストール
+
+```sh
+npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+npm install @craco/craco
+```
+
+package.json scriptの編集
+
+```package.json script
+{
+    // ...
+    "scripts": {
+     "start": "craco start",
+     "build": "craco build",
+     "test": "craco test",
+    // ...
+    },
+  }
+```
+
+![参考画像](/images/react-articles/carco.png)
+
+craco.configの作成
+
+```sh
+touch craco.config.js
+```
+
+![参考画像](/images/react-articles/carco-config.png)
+
+tailwind.config.js, postcss.config.jsの生成
+
+```sh
+$ npx tailwindcss init -p
+
+Created Tailwind CSS config file: tailwind.config.js
+Created PostCSS config file: postcss.config.js
+```
+
+tailwind.config.jsのpurge設定追加
+tailwind.config.jsの中身をコピーしましょう
+
+```tailwind.config.js
+module.exports = {
+    purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+    darkMode: false,
+    theme: {
+        extend: {},
+    },
+    variants: {
+        extend: {},
+    },
+    plugins: [],
+}
+```
+
+![参考画像](/images/react-articles/tailwind-config.png)
+
+./src/index.cssの編集
+
+```
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+![参考画像](/images/react-articles/index-css.png)
+
+prettierの設定 : settingsでRequire Config + Format On Saveにチェック
+
+```sh
+touch .prettierrc
+```
+
+```prettierrc
+{
+    "singleQuote": true,
+    "semi": false
+}
+```
+
+![参考画像](/images/react-articles/prettier.png)
+
+:::message alert
+デザインに関してはマテリアルデザインやその他色々ありますが、
+現在僕はこのTailwindCSSを使用していることが多くしています。
+正直なところデザインは「好み」の問題なので、好みが異なると批判が出ることも重々承知です。
+言語やフレームワークをシステムエンジニア同士でも争いをしているので「生産性の向上を語るシステムエンジニアが生産性に一切寄与しない言語間フレームワーク間闘争」をしていますが
+正直僕はどっちでもいいですがこの「ツギハギ漂流作家」から大事なことを学びましょう！！
+:::
+
+:::message
+ポイントは「何で作るかではなく、何を作るか？」です。
+:::
+
+![参考画像](/images/react-articles/blog1558.jpeg)
 
 ## Angular Flex-Layout導入
 
