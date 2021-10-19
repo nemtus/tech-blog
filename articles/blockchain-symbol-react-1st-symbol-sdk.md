@@ -132,6 +132,32 @@ $ npm -v
 
 ![ディレクトリ（フォルダって言った方がいいかな？）](/images/react-articles/directory.png)
 
+```sh
+$ npx create-react-app . --template typescript --use-npm
+npm を使用して色々とreactとtypescriptの最初のプロジェクトを作成していきます。
+```
+
+npx create-react-app .
+この書き方で現在のディレクトリに作成するので、特に問題ないです。
+これは僕の好みで実施しています
+
+--template typescript
+こちらはデフォルトをtypescriptにしてくれます。
+Symbol SDKもTypescriptで書いているのでそっちに合わせましょう！と言ったところです。
+正直TypeScriptは最初はとても難しいと思うようになるのですが、
+これも要するになれなので、最初はいっぱいエラーが吐いてしんどいと思いますが、
+慣れです。
+
+この慣れという考えが非常に重要なので、エラーに対して悩むのではなく、
+楽しんで行ってもらえますと幸いです。
+
+Reactのアプリケーションができますと以下のメッセージが出ます
+
+```sh
+Happy hacking!
+```
+
+なので楽しく開発しましょう！！
 ## 初回起動
 
 ## Angular Material導入
