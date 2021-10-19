@@ -265,11 +265,11 @@ touch .prettierrc
 正直僕はどっちでもいいですがこの「ツギハギ漂流作家」から大事なことを学びましょう！！
 :::
 
+![参考画像](/images/react-articles/blog1558.jpeg)
+
 :::message
 ポイントは「何で作るかではなく、何を作るか？」です。
 :::
-
-![参考画像](/images/react-articles/blog1558.jpeg)
 
 一度このタイミングでnpm startをしてみましょう。
 エラーがなければよかったです！
