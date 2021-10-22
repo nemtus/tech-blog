@@ -33,7 +33,7 @@ IonicはAngularやReact、Vueといったフレームワークと併用するこ
 
 ## Ionic CLIの導入
 
-以下のコマンドを実行して、グローバルにIonic CLIを導入します
+以下のコマンドを実行して、グローバルにIonic CLIを導入します。
 
 ```sh
 $ npm install -g @ionic/cli@latest
@@ -47,13 +47,13 @@ $ npm install -g @ionic/cli@latest
 $ ionic start ionocVueSymbol01 blank --type vue 
 ```
 
-プロジェクトを作成したらプロジェクトのディレクトリに移動します
+プロジェクトを作成したらプロジェクトのディレクトリに移動します。
 
 ```sh
 $ cd ionocVueSymbol01
 ```
 
-以下のコマンドでプロジェクトを実行することができます
+以下のコマンドでプロジェクトを実行することができます。
 
 ```sh
 $ ionic serve
@@ -63,7 +63,7 @@ $ ionic serve
 
 ## symbol-sdkの導入
 
-プロジェクトのルートディレクトリで以下のコマンドを実行して、symbol-sdkを導入しましょう
+プロジェクトのルートディレクトリで以下のコマンドを実行して、symbol-sdkを導入しましょう。
 
 ```
 $ npm install symbol-sdk rxjs
@@ -247,10 +247,10 @@ const epochAdjustment = 1616694977;
 ```
 
 まず、上記の最初の4行で接続するネットワークの基本情報を設定しています。
-`nodeUrl` は接続するSymbolのRESTゲートウェイを指定しています。ここではOpening Line社のテストネットのノードに接続していますが、Symbolではメインネットで1000台以上、テストネットで50台程度のノードが動いており、これらノードは協調して動いておりどのノードにつないでも構いません。
+`nodeUrl` は接続するSymbolのRESTゲートウェイを指定しています。ここではOpening Line社のテストネットのノードに接続していますが、Symbolではメインネットで1000台以上、テストネットで50台程度のノードが動いており、これらノードは協調して動いており、どのノードにつないでも構いません。
 `networkType` はここでは `NetworkType.TEST_NET` を指定しています。メインネットの場合は `NetworkType.MAIN_NET` を指定します。
 `networkGenerationHash` はネットワーク固有の値でリプレイ攻撃を防ぐため、トランザクションの署名をする際にこの値が必要となってきます。
-Symbolではネットワーク毎の基準時間が定めたれており、UNIX時間との差分を `epochAdjustment` で保持しています。この値は、トランザクションの有効期限を設定する際に必要となります。
+Symbolではネットワーク毎の基準時間が定められており、UNIX時間との差分を `epochAdjustment` で保持しています。この値は、トランザクションの有効期限を設定する際に必要となります。
 
 networkGenerationHashやepochAdjustmentは接続先のノードの `/network/properties` で確認することができます。
 
@@ -332,7 +332,7 @@ try {
 
 上記がトランザクションをネットワークに送信する処理と送信したトランザクションの結果を監視するコードとなっています。
 Symbolのトランザクションの処理結果は非同期で返ってくるため、最初にWebSocketに接続します。
-`transactionService.announce(signedTransaction, listener)` はトランザクションをネットワークにアナウンスとトランザクションの結果の監視を1まとめにしたコンビニエンスメソッドです。
+`transactionService.announce(signedTransaction, listener)` はトランザクションをネットワークにアナウンスとトランザクションの結果の監視をひとまとめにしたコンビニエンスメソッドです。
 これ1つでトランザクションがブロックに取り込まれるか何らかのエラーが発生したかを監視することができます。
 Symbolのトランザクションは非同期で処理されるため、トランザクションがブロックに取り込まれたか、エラーが発生したかはWebSocketもしくは別なAPIを叩いて確認する必要がありますが、このメソッドはそれをひとまとめにしています。
 `transactionService.announce(signedTransaction, listener)` は本来rxjsで処理するのですが、今回の例では簡便化のためpromise化して、async/awaitで処理しています。
