@@ -381,7 +381,7 @@ npm start
 今回はどうしようかな？
 そうですね、テストネットを使用するので皆さん好きな方法を採用してみてください。
 
-そもそもアドレスの生成方法はどのような方法があるのか？という話を考えます。
+そもそもアカウントの生成方法はどのような方法があるのか？という話を考えます。
 
 Symbol-SDKでアカウントを作成する方法はいくつかあります。
 
@@ -411,7 +411,7 @@ import { Account } from 'symbol-sdk'
 今回はこんな感じです。
 :::
 
-新規アカウントを作る方法
+### 新規アカウントを作る方法
 
 Symbol-SDKからアカウントを新規に作成する方法は
 AccountとNetworkTypeが必要になります
@@ -448,6 +448,101 @@ export default App
 さてこれを実行するとこんな感じになります
 
 ![アカウントの生成](/images/react-articles/accountGenerate.png)
+
+アカウントの作成という文字がボタンになっています。
+
+まずはChromeの検証（inspector）をクリックします。
+
+![検証](/images/react-articles/Inspecter.png)
+
+そうすると「コンソール」もしくは「console」という項目がありますのでクリックします。
+
+![コンソール](/images/react-articles/console.png)
+
+これでアプリケーション内にconsoleに出力するという命令があるとここに表示されます。
+
+現時点ではsrc/App.tsx内に存在するaccountCreateの関数にconsole.logという関数が実装されています。
+ここでコンソールに出力するという命令になっています。
+
+この関数の流れとしては
+
+1. まずはアカウントを生成してaccountという定数の中に格納します
+2. 次にコンソールログで'Your new account address is: アカウントのアドレスの文字列を表示'となっています
+3. また最後には'and its private key アカウントのプライベートキーを表示'
+
+という処理が実施されます。
+
+```src/App.tsx
+const accountCreate = () => {
+    const account = Account.generateNewAccount(NetworkType.TEST_NET)
+    console.log(
+      'Your new account address is:',
+      account.address.pretty(),
+      'and its private key',
+      account.privateKey
+    )
+  }
+```
+
+それではこのアカウントを生成のボタンを押してみます。
+どうなるかな？
+
+```console
+Your new account address is: TDK7FE-VBYAE7-BHNFPK-DWXTIL-HJJ7G2-U6MWMJ-6CY and its private key A03B6B24549989C381A88149E18AF8C7B2E2639C1CE919E6B659A1F3C8C307E7
+```
+
+となっています。
+
+![結果](/images/react-articles/accountGenerateResult.png)
+
+このようになっていればOKです！！
+
+ちなみにaddress.pretty()となっているところを少しいじるとこんな感じになります
+
+account.addressの時
+
+```result
+Your new account address is: Address {address: 'TDJNAYAZY7EJJIVQX7UVXFDR4F7PHLRWWJGUSBY', networkType: 152}address: "TDJNAYAZY7EJJIVQX7UVXFDR4F7PHLRWWJGUSBY"networkType: 152[[Prototype]]: Object and its private key A51C696BE2102A36F766222C8B5305AD4EA52C9FD325DDCECE0A2C0D7326B7B2
+```
+
+account.networkTypeの時
+
+```result
+Your new account address is: 152 and its private key 651230EBAA228E9A1C306F2DECD04C16483B049E6245B5BF3F703189351FE676
+```
+
+まぁ色々機能があるんで試してみてください！！
+
+:::message
+重要なことは色々試してみることです！
+:::
+
+![試した結果](/images/react-articles/somethingTest.png)
+
+### 秘密鍵から生成する方法
+
+さてアカウントを生成する方法はわかったので次は既存のアカウントを生成する方法です。
+symbolブロックチェーンではアカウントの生成には秘密鍵を使用することができます。
+
+イメージとしては他のサービスで生成したアカウントの秘密鍵を自分が作成しているアプリケーションに「復元」するイメージの方がいいかなと思っています。
+
+![アカウントの生成イメージ](/images/react-articles/AccountGenerateImage.png)
+
+それでは実装していきましょう。
+
+この手で僕はどのような手順で実装していくのかと言いますと。
+
+まずは
+
+1. デスクトップウォレットでアカウントを作成
+2. デスクトップウォレットから秘密鍵を取得
+3. Reactのアプリケーションで復元できるか確認
+4. useStateを使用して秘密鍵の文字列を入力してから復元できるか確認
+
+この４つのタスクを処理できれば秘密鍵からアカウントを生成する方法は身につくはずです。
+
+ではやってみましょう。
+
 
 ## アカウント情報表示ページの実装
 
