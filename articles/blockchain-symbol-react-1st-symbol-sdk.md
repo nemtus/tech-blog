@@ -145,7 +145,7 @@ npx create-react-app .
 こちらはデフォルトをtypescriptにしてくれます。
 Symbol SDKもTypescriptで書いているのでそっちに合わせましょう！と言ったところです。
 正直TypeScriptは最初はとても難しいと思うようになるのですが、
-これも要するになれなので、最初はいっぱいエラーが吐いてしんどいと思いますが、
+これも要するに慣れなので、最初はいっぱいエラーが吐いてしんどいと思いますが、
 慣れです。
 
 この慣れという考えが非常に重要なので、エラーに対して悩むのではなく、
@@ -259,9 +259,9 @@ touch .prettierrc
 
 :::message alert
 デザインに関してはマテリアルデザインやその他色々ありますが、
-現在僕はこのTailwindCSSを使用していることが多くしています。
+現在僕はこのTailwindCSSを使用することが多くなっています。
 正直なところデザインは「好み」の問題なので、好みが異なると批判が出ることも重々承知です。
-言語やフレームワークをシステムエンジニア同士でも争いをしているので「生産性の向上を語るシステムエンジニアが生産性に一切寄与しない言語間フレームワーク間闘争」をしていますが
+言語やフレームワークについて、システムエンジニア同士でも争いをしているので「生産性の向上を語るシステムエンジニアが生産性に一切寄与しない言語間フレームワーク間闘争」をしていますが
 正直僕はどっちでもいいですがこの「ツギハギ漂流作家」から大事なことを学びましょう！！
 :::
 
@@ -354,7 +354,7 @@ npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-c
 
 ## 機能開発のためにsymbol-sdkをインストールします
 
-[ここにインストール方法が書いています](https://github.com/symbol/symbol-sdk-typescript-javascript)
+[ここにインストール方法を書いています](https://github.com/symbol/symbol-sdk-typescript-javascript)
 
 ```sh
 npm install symbol-sdk rxjs
