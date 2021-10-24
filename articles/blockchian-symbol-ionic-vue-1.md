@@ -237,6 +237,13 @@ export async function sendTransaction() {
 }
 ```
 
+また、アカウントの秘密鍵は `.env` に記述します
+
+```txt:.env
+// INPUT_YOUR_PRIVATE_KEYはデスクトップウォレットなどで作成した秘密鍵を記述します。
+VUE_APP_SENDER_PRIVATE_KEY=INPUT_YOUR_PRIVATE_KEY
+```
+
 `SymbolService.ts` にトランザクションの送信処理をまとめていますが、この中身を細かく見ていこうと思います。
 
 
