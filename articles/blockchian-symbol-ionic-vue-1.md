@@ -185,6 +185,7 @@ import {
   Address,
   Deadline,
   NetworkType,
+  NetworkCurrencies,
   PlainMessage,
   RepositoryFactoryHttp,
   TransactionService,
