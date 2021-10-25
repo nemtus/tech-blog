@@ -543,6 +543,279 @@ symbolブロックチェーンではアカウントの生成には秘密鍵を�
 
 ではやってみましょう。
 
+![デスクトップウォレット](/images/react-articles/symbol-desktop-wallet.png)
+
+はい、こちらデスクトップウォレットです。
+
+デスクトップウォレットからアカウントを作成します。
+
+今回はシードアカウント１というアカウントを使用します。
+
+![シードアカウント](/images/react-articles/seedAccount.png)
+
+そこでPrivate Keyとなっているところのshowを選択して
+パスワードを入力します。
+
+そうすると秘密鍵が表示されるのでコピーをしましょう。
+
+:::message alert
+秘密鍵を公開するのはやめましょう。
+後悔しますよ。
+こうかいだけに。
+:::
+
+さてさて、これで秘密鍵は取得できました。
+次は秘密鍵からアカウントを復元する必要があります。
+
+[参考にするソースコードはこちら](https://github.com/symbol/symbol-docs/blob/main/source/resources/examples/typescript/account/OpeningAnAccount.ts)
+
+それでは作っていきましょう。
+
+秘密鍵からアカウントを復元するには２つの材料が必要です。
+
+1. 秘密鍵
+2. ネットワークタイプ
+
+```src/App.tsx
+  const accountCreateFromPrivateKey = () => {
+    const account = Account.createFromPrivateKey(
+      "7B20E0615755D6EEDA0DAB45E5D8A4331EC603F8702D7F4E6171FB81CF83CF78",
+      NetworkType.TEST_NET
+    )
+    console.log(
+      'Your account address is:',
+      account.address.pretty(),
+      'and its private key',
+      account.privateKey
+    )
+  }
+```
+
+:::message alert
+良い子のみんなは秘密鍵を公開しないようにしましょう。
+後悔します。
+こうかいだけに。
+:::
+
+関数を作成したので、これをボタンで呼び出しましょう。
+
+```src/App.tsx
+return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <button onClick={accountCreate}>アカウントの作成</button>
+        <button onClick={accountCreateFromPrivateKey}>秘密鍵からアカウントを作成する</button> {/* ここが追加されるよ！！ */}
+      </header>
+    </div>
+  )
+```
+
+さてさて、動作確認をしましょう。
+
+できてますね。
+
+![プライベートキーからアカウントを生成する](/images/react-articles/privateKeyGenerate.png)
+
+アカウントの文字列が合っているか確認します。
+
+![アカウントのアドレスの確認](/images/react-articles/privateKeyGenerateConsole.png)
+
+合ってますね。
+
+これで秘密鍵からアカウントを生成することができました！！
+
+さてさてそれでは二つをコンポーネント化します。
+
+理由としては次の作業にとても邪魔になるからです。（個人差はありますので、別に気にならない人はそれでいいかと思います）
+
+:::message
+アプリケーションのコードの整理方法には色々あります。
+オニオンフレームワークとか
+あと、ドメイン駆動型とか
+ですが、まずは「気持ちのいい開発方法」を探してもらえますと幸いです。
+所詮こういったのは全て「整理整頓」です。
+夫婦でも洗濯物の畳み方で喧嘩するぐらい人間の「整理整頓」の価値観は様々です。
+なのでまずは自分の気持ちいい開発手法を実施してみましょう。
+この開発手法での戦争はAKBの中で誰がいいのか？ぐらいどうでもいい話です。
+生産性はまずは開発しやすい心理状態を作るところからスタートです。（結構ここをバカにしているエンジニアは多いので誰かと一緒に作る際は要注意です。
+:::
+
+:::message alert
+仕事の場合はちょっと聞きかじったエンジニアがDDDとか言ってきますが、
+その時はお賃金分だけ頑張りましょう！！
+:::
+
+さて、コンポーネント化ですが、さっきも言ったように
+ただの整理整頓です。
+今はアタッシュケースの中に乱雑に入っている感じですが、それを靴下の場所、パンツの場所、シャツの場所
+みたいに整理することです。
+
+![コンポーネント化](/images/react-articles/componentism.png)
+
+まぁ整理するとそら取り出しやすいよね。
+みたいな感じです。
+
+ただ、これはあくまでも個人単位で実施した方がいいです。
+整理整頓と一つにしても前職の障がい支援では自閉スペクトラム症の方での整理整頓のルールが異なっていたので
+まずは「個人単位」です。
+
+:::message alert
+仕事の場合はお賃金分だけ頑張りましょう！！
+:::
+
+さて、それではこの画像のようにコンポーネント化するためのディレクトリ（フォルダ）とファイルを作成しましょう。
+
+ターミナルでsrcの下の階層にcomponentという名前のディレクトリを作成します。
+
+```sh
+react_symbol_typescript$ mkdir src/component
+```
+
+次にファイルを作成します。
+先ほど作成したcomponentのディレクトリの階層の下にファイルを二つ作成します。
+名前はGenerateNewAccount.tsxとCreateFromPrivateKey.tsxの二つです。
+
+```sh
+react_symbol_typescript$ touch src/component/GenerateNewAccount.tsx
+react_symbol_typescript$ touch src/component/CreateFromPrivateKey.tsx
+```
+
+![こんな感じになります](/images/react-articles/componentFile.png)
+
+:::message
+VSCodeの方は好みでこのVSCodeの拡張機能を使うといい感じになります。
+どういい感じになるかは使ってみてのお楽しみ
+https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+今回のようにコンポーネントファイルを作成した後にファイルでrafceと入力するとこんな感じになります。
+:::
+
+![rafce](/images/react-articles/rafce.png)
+
+```src/component/CreateFromPrivateKey.tsx
+import React from 'react'
+
+const CreateFromPrivateKey = () => {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default CreateFromPrivateKey
+
+```
+
+コンポーネントの初期状態を自動で記載してくれます。（これ結構僕気に入っています。）
+
+さて、移植しましょう。
+
+```src/component/CreateFromPrivateKey.tsx
+import React from 'react'
+import { Account, NetworkType } from 'symbol-sdk'
+
+const CreateFromPrivateKey = () => {
+  const accountCreateFromPrivateKey = () => {
+    const account = Account.createFromPrivateKey(
+      '7B20E0615755D6EEDA0DAB45E5D8A4331EC603F8702D7F4E6171FB81CF83CF78',
+      NetworkType.TEST_NET
+    )
+    console.log(
+      'Your account address is:',
+      account.address.pretty(),
+      'and its private key',
+      account.privateKey
+    )
+  }
+  return (
+    <div>
+      <button onClick={accountCreateFromPrivateKey}>
+        秘密鍵からアカウントを作成する
+      </button>{' '}
+      {/* ここが追加されるよ！！ */}
+    </div>
+  )
+}
+
+export default CreateFromPrivateKey
+
+```
+
+```src/component/GenerateNewAccount.tsx
+import React from 'react'
+import { Account, NetworkType } from 'symbol-sdk'
+
+const GenerateNewAccount = () => {
+  const accountCreate = () => {
+    const account = Account.generateNewAccount(NetworkType.TEST_NET)
+    console.log(
+      'Your new account address is:',
+      account.address.pretty(),
+      'and its private key',
+      account.privateKey
+    )
+  }
+  return (
+    <div>
+      <button onClick={accountCreate}>アカウントの作成</button>
+    </div>
+  )
+}
+
+export default GenerateNewAccount
+
+```
+
+```src/App.tsx
+import logo from './logo.svg'
+import './App.css'
+
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+      </header>
+    </div>
+  )
+}
+
+export default App
+```
+
+さてこれで移植ができましたのであとはsrc/App.tsxで呼び出す必要があります。
+
+```src/App.tsx
+import logo from './logo.svg'
+import './App.css'
+import CreateFromPrivateKey from './component/CreateFromPrivateKey'
+import GenerateNewAccount from './component/GenerateNewAccount'
+
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <CreateFromPrivateKey></CreateFromPrivateKey>
+        <GenerateNewAccount></GenerateNewAccount>
+      </header>
+    </div>
+  )
+}
+
+export default App
+```
+
+先ほどの違いとして、秘密鍵からアカウントを生成する方法とアカウントを新しく生成する方法の順番を入れ替えています。
+
+![こんな感じになります](/images/react-articles/finishComponent.png)
+
+それぞれのボタンを押して動くか確認してくださいね！
+
+[ここまでの成果物](https://github.com/nemtus/symbol-sample-react/tree/address-create)
 
 ## アカウント情報表示ページの実装
 
