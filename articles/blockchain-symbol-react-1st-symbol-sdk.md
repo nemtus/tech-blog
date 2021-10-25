@@ -817,6 +817,113 @@ export default App
 
 [ここまでの成果物](https://github.com/nemtus/symbol-sample-react/tree/address-create)
 
+## useState
+
+さて、いい感じにReactにも慣れてきたと思います。
+（えっ？慣れていない？そういう時は二郎でも食べにいきましょう！！）
+
+次は秘密鍵を入力するとそのアカウントが作成される部分を作りたいと思います。
+
+先ほど作った秘密鍵の生成のところは毎回文字列をアプリケーションに設定してから生成しました。
+
+それだと・・・
+
+「使い勝手が悪い。」
+
+となったりします（要件次第）
+
+なので皆さんの秘密鍵を入力してそれぞれのアカウントを生成できるようにします。
+
+ワクワクしてきましたね。
+
+[ワクワク！！](https://www.youtube.com/watch?v=WEFCEjDGc64)
+
+そこで使用するのがuseStateというReactの機能です。色々とややこしい説明は省きます、
+ここで覚えて欲しいのは
+
+「useStateを使用すれば変数とその内容を変更することができる」です。
+
+今回は秘密鍵の文字列を入力してその秘密鍵を参照して関数を実行するという処理が必要です。
+
+![useStateで実施したい処理](/images/react-articles/useState.png)
+
+この２つを簡単にしてくれるのがuseStateです。
+
+:::message
+変数をよく箱で表されるのは変数はもともとメモリの何番目から何番目という区間を指定して
+そのメモリ領域を確保するというところから来ているのではないかと僕は勝手に解釈してます。
+なのでメモリ領域を箱としてその中身を入れ替えたり、その箱の中身をコピーしたりと色々です。
+:::
+
+さてではuseStateを使ってみましょう。
+
+``` src/component/CreateFromPrivateKey.tsx
+const [privateKey, setPrivateKey] = useState("");
+```
+
+この左のprivateKeyが変数宣言です。
+その横のsetPrivateKeyが入れ替える関数です。
+右のuseState()でuseStateを使用します。
+そのカッコの中で箱の形を宣言できます。
+
+なのでこれで試しに関数とボタンを作成してみましょう。
+
+``` src/component/CreateFromPrivateKey.tsx
+import React, { useState } from 'react'
+import { Account, NetworkType } from 'symbol-sdk'
+
+const CreateFromPrivateKey = () => {
+  const [privateKey, setPrivateKey] = useState('')
+  console.log(privateKey)
+
+  const sampleUseState = () => {
+    setPrivateKey(
+      '7B20E0615755D6EEDA0DAB45E5D8A4331EC603F8702D7F4E6171FB81CF83CF78'
+    )
+  }
+
+  const accountCreateFromPrivateKey = () => {
+    const account = Account.createFromPrivateKey(
+      '7B20E0615755D6EEDA0DAB45E5D8A4331EC603F8702D7F4E6171FB81CF83CF78',
+      NetworkType.TEST_NET
+    )
+    console.log(
+      'Your account address is:',
+      account.address.pretty(),
+      'and its private key',
+      account.privateKey
+    )
+  }
+  return (
+    <div>
+      <button onClick={accountCreateFromPrivateKey}>
+        秘密鍵からアカウントを作成する
+      </button>
+      <br />
+      <button onClick={sampleUseState}>useStateを試してみる</button>
+    </div>
+  )
+}
+
+export default CreateFromPrivateKey
+
+```
+
+このsampleUseStateという関数を作成しました。
+これで実行してみます。
+
+最初の状態では秘密鍵の中はからですが、
+
+![最初の状態](/images/react-articles/useStateConsoleBefore.png)
+
+ボタンを押した後には値が表示されています。
+
+![ボタンを押した後](/images/react-articles/useStateConsoleAfter.png)
+
+こんな感じでいい具合に実施します。
+
+というわけでこのsetStateを実施した後にアカウントが生成される処理を作ります。
+
 ## アカウント情報表示ページの実装
 
 ## まとめ
