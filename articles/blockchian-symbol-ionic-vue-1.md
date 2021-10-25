@@ -3,7 +3,7 @@ title: "Ionic(Vue)でSymbolモバイルアプリを作ってみる その1"
 emoji: "⛓"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["blockchain", "symbol", "ionic", "typescript", "vue"]
-published: false
+published: true
 ---
 
 # Ionic(vue)でSymbolモバイルアプリを作ってみる その1
