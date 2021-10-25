@@ -924,6 +924,60 @@ export default CreateFromPrivateKey
 
 というわけでこのsetStateを実施した後にアカウントが生成される処理を作ります。
 
+次はuseStateを使った変数のprivateKeyという変数を使ってアカウントを生成してみます。
+
+秘密鍵の文字列のところにprivateと入力します。
+
+``` src/component/CreateFromPrivateKey.tsx
+import React, { useState } from 'react'
+import { Account, NetworkType } from 'symbol-sdk'
+
+const CreateFromPrivateKey = () => {
+  const [privateKey, setPrivateKey] = useState('')
+  console.log('秘密鍵', privateKey)
+
+  const sampleUseState = () => {
+    setPrivateKey(
+      '7B20E0615755D6EEDA0DAB45E5D8A4331EC603F8702D7F4E6171FB81CF83CF78'
+    )
+  }
+
+  const accountCreateFromPrivateKey = () => {
+    const account = Account.createFromPrivateKey(
+      privateKey,
+      NetworkType.TEST_NET
+    )
+    console.log(
+      'Your account address is:',
+      account.address.pretty(),
+      'and its private key',
+      account.privateKey
+    )
+  }
+  return (
+    <div>
+      <button onClick={accountCreateFromPrivateKey}>
+        秘密鍵からアカウントを作成する
+      </button>
+      <br />
+      <button onClick={sampleUseState}>useStateを試してみる</button>
+    </div>
+  )
+}
+
+export default CreateFromPrivateKey
+```
+
+できた！！
+
+![できた！](/images/react-articles/variablePrivateKeySetting.png)
+
+流れはuseStateのボタンを押して秘密鍵からのボタンを押します。
+
+## 入力エリアを設定
+
+というわけでuseStateの部分も理解ができたので次は入力エリアの設定をします。
+
 ## アカウント情報表示ページの実装
 
 ## まとめ
