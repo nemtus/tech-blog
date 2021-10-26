@@ -6,6 +6,7 @@ topics: ["blockchain", "symbol", "react", "typescript", "rxjs"]
 published: true
 ---
 
+
 # Reactでsymbol-sdkを使うための環境構築
 
 ## 概要
@@ -115,14 +116,14 @@ AngularやVueやStencilなど色々フレームワークがありますが、
 その時はまずは落ち着きましょう！
 ![まだ慌てるような時間ではない](/images/react-articles/unnamed.jpeg)
 
-```sh
+```sh:terminal
 $ node -v
 v16.11.0
 ```
 
 そうすると自動的にnpmもくっついてくるはずなので一応バージョン確認しておきましょう
 
-```sh
+```sh:terminal
 $ npm -v
 8.0.0
 ```
@@ -132,7 +133,7 @@ $ npm -v
 
 ![ディレクトリ（フォルダって言った方がいいかな？）](/images/react-articles/directory.png)
 
-```sh
+```sh:terminal
 $ npx create-react-app . --template typescript --use-npm
 npm を使用して色々とreactとtypescriptの最初のプロジェクトを作成していきます。
 ```
@@ -153,7 +154,7 @@ Symbol SDKもTypescriptで書いているのでそっちに合わせましょう
 
 Reactのアプリケーションができますと以下のメッセージが出ます
 
-```sh
+```sh:terminal
 Happy hacking!
 ```
 
@@ -161,7 +162,7 @@ Happy hacking!
 
 ## 初回起動
 
-```sh
+```sh:terminal
 $ npm start
 このコマンドでローカルのPC環境にアプリケーションを実行することができます
 ```
@@ -175,14 +176,14 @@ $ npm start
 
 必要なモジュールのインストール
 
-```sh
+```sh:terminal
 npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 npm install @craco/craco
 ```
 
 package.json scriptの編集
 
-```package.json script
+```json:package.json script
 {
     // ...
     "scripts": {
@@ -198,7 +199,7 @@ package.json scriptの編集
 
 craco.configの作成
 
-```sh
+```sh:terminal
 touch craco.config.js
 ```
 
@@ -206,7 +207,7 @@ touch craco.config.js
 
 tailwind.config.js, postcss.config.jsの生成
 
-```sh
+```sh:terminal
 $ npx tailwindcss init -p
 
 Created Tailwind CSS config file: tailwind.config.js
@@ -216,7 +217,7 @@ Created PostCSS config file: postcss.config.js
 tailwind.config.jsのpurge設定追加
 tailwind.config.jsの中身をコピーしましょう
 
-```tailwind.config.js
+```js:tailwind.config.js
 module.exports = {
     purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
     darkMode: false,
@@ -234,7 +235,7 @@ module.exports = {
 
 ./src/index.cssの編集
 
-```
+``` css:index.css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -244,11 +245,11 @@ module.exports = {
 
 prettierの設定 : settingsでRequire Config + Format On Saveにチェック
 
-```sh
+```sh:terminal
 touch .prettierrc
 ```
 
-```prettierrc
+```json:prettierrc
 {
     "singleQuote": true,
     "semi": false
@@ -274,7 +275,7 @@ touch .prettierrc
 一度このタイミングでnpm startをしてみましょう。
 エラーがなければよかったです！
 
-```sh
+```sh:terminal
 npm start
 ```
 
@@ -289,7 +290,7 @@ https://github.com/postcss/postcss/wiki/PostCSS-8-for-end-users
 
 一旦tailwindcssのバージョンを落とそうといった感じです。
 
-```sh
+```sh:terminal
 npm uninstall tailwindcss postcss autoprefixer
 npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
 ```
@@ -334,7 +335,7 @@ npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-c
 実施します。
 
 - アカウントの生成
-- パブリックキーの取得
+- アドレス、パブリックキーの取得
 - 保有モザイクの取得
 - インポータンスの取得
 
@@ -356,13 +357,13 @@ npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-c
 
 [ここにインストール方法を書いています](https://github.com/symbol/symbol-sdk-typescript-javascript)
 
-```sh
+```sh:terminal
 npm install symbol-sdk rxjs
 ```
 
 これでインストールができてから動作確認をしましょう
 
-```sh
+```sh:terminal
 npm start
 ```
 
@@ -387,7 +388,7 @@ Symbol-SDKでアカウントを作成する方法はいくつかあります。
 
 というわけなのでまずは機能を確認するだけなのでsrc/App.tsxにsymbol-sdkをimportしましょう。
 
-```src/App.tsx
+```tsx:src/App.tsx
 import { Account } from 'symbol-sdk'
 ```
 
@@ -416,7 +417,7 @@ import { Account } from 'symbol-sdk'
 Symbol-SDKからアカウントを新規に作成する方法は
 AccountとNetworkTypeが必要になります
 
-```src/App.tsx
+```tsx:src/App.tsx
 import logo from './logo.svg'
 import './App.css'
 import { Account, NetworkType } from 'symbol-sdk'
@@ -472,7 +473,7 @@ export default App
 
 という処理が実施されます。
 
-```src/App.tsx
+```tsx:src/App.tsx
 const accountCreate = () => {
     const account = Account.generateNewAccount(NetworkType.TEST_NET)
     console.log(
@@ -487,7 +488,7 @@ const accountCreate = () => {
 それではこのアカウントを生成のボタンを押してみます。
 どうなるかな？
 
-```console
+``` result:console
 Your new account address is: TDK7FE-VBYAE7-BHNFPK-DWXTIL-HJJ7G2-U6MWMJ-6CY and its private key A03B6B24549989C381A88149E18AF8C7B2E2639C1CE919E6B659A1F3C8C307E7
 ```
 
@@ -501,13 +502,13 @@ Your new account address is: TDK7FE-VBYAE7-BHNFPK-DWXTIL-HJJ7G2-U6MWMJ-6CY and i
 
 account.addressの時
 
-```result
+``` result:console
 Your new account address is: Address {address: 'TDJNAYAZY7EJJIVQX7UVXFDR4F7PHLRWWJGUSBY', networkType: 152}address: "TDJNAYAZY7EJJIVQX7UVXFDR4F7PHLRWWJGUSBY"networkType: 152[[Prototype]]: Object and its private key A51C696BE2102A36F766222C8B5305AD4EA52C9FD325DDCECE0A2C0D7326B7B2
 ```
 
 account.networkTypeの時
 
-```result
+``` result:console
 Your new account address is: 152 and its private key 651230EBAA228E9A1C306F2DECD04C16483B049E6245B5BF3F703189351FE676
 ```
 
@@ -576,7 +577,7 @@ symbolブロックチェーンではアカウントの生成には秘密鍵を�
 1. 秘密鍵
 2. ネットワークタイプ
 
-```src/App.tsx
+```tsx:src/App.tsx
   const accountCreateFromPrivateKey = () => {
     const account = Account.createFromPrivateKey(
       "7B20E0615755D6EEDA0DAB45E5D8A4331EC603F8702D7F4E6171FB81CF83CF78",
@@ -599,7 +600,7 @@ symbolブロックチェーンではアカウントの生成には秘密鍵を�
 
 関数を作成したので、これをボタンで呼び出しましょう。
 
-```src/App.tsx
+```tsx:src/App.tsx
 return (
     <div className="App">
       <header className="App-header">
@@ -668,7 +669,7 @@ return (
 
 ターミナルでsrcの下の階層にcomponentという名前のディレクトリを作成します。
 
-```sh
+```sh:terminal
 react_symbol_typescript$ mkdir src/component
 ```
 
@@ -676,7 +677,7 @@ react_symbol_typescript$ mkdir src/component
 先ほど作成したcomponentのディレクトリの階層の下にファイルを二つ作成します。
 名前はGenerateNewAccount.tsxとCreateFromPrivateKey.tsxの二つです。
 
-```sh
+``` sh:terminal
 react_symbol_typescript$ touch src/component/GenerateNewAccount.tsx
 react_symbol_typescript$ touch src/component/CreateFromPrivateKey.tsx
 ```
@@ -692,7 +693,7 @@ https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snipp
 
 ![rafce](/images/react-articles/rafce.png)
 
-```src/component/CreateFromPrivateKey.tsx
+```tsx:src/component/CreateFromPrivateKey.tsx
 import React from 'react'
 
 const CreateFromPrivateKey = () => {
@@ -711,7 +712,7 @@ export default CreateFromPrivateKey
 
 さて、移植しましょう。
 
-```src/component/CreateFromPrivateKey.tsx
+```tsx:src/component/CreateFromPrivateKey.tsx
 import React from 'react'
 import { Account, NetworkType } from 'symbol-sdk'
 
@@ -742,7 +743,7 @@ export default CreateFromPrivateKey
 
 ```
 
-```src/component/GenerateNewAccount.tsx
+``` tsx:src/component/GenerateNewAccount.tsx
 import React from 'react'
 import { Account, NetworkType } from 'symbol-sdk'
 
@@ -767,7 +768,7 @@ export default GenerateNewAccount
 
 ```
 
-```src/App.tsx
+``` tsx:src/App.tsx
 import logo from './logo.svg'
 import './App.css'
 
@@ -787,7 +788,7 @@ export default App
 
 さてこれで移植ができましたのであとはsrc/App.tsxで呼び出す必要があります。
 
-```src/App.tsx
+``` tsx:src/App.tsx
 import logo from './logo.svg'
 import './App.css'
 import CreateFromPrivateKey from './component/CreateFromPrivateKey'
@@ -868,7 +869,7 @@ const [privateKey, setPrivateKey] = useState("");
 
 なのでこれで試しに関数とボタンを作成してみましょう。
 
-``` src/component/CreateFromPrivateKey.tsx
+``` tsx:src/component/CreateFromPrivateKey.tsx
 import React, { useState } from 'react'
 import { Account, NetworkType } from 'symbol-sdk'
 
@@ -928,7 +929,7 @@ export default CreateFromPrivateKey
 
 秘密鍵の文字列のところにprivateと入力します。
 
-``` src/component/CreateFromPrivateKey.tsx
+``` tsx:src/component/CreateFromPrivateKey.tsx
 import React, { useState } from 'react'
 import { Account, NetworkType } from 'symbol-sdk'
 
@@ -977,6 +978,302 @@ export default CreateFromPrivateKey
 ## 入力エリアを設定
 
 というわけでuseStateの部分も理解ができたので次は入力エリアの設定をします。
+
+まずは入力エリアを作成します。
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+  return (
+    <div>
+      <input className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" />
+      <br />
+      <button onClick={accountCreateFromPrivateKey}>
+        秘密鍵からアカウントを作成する
+      </button>
+      <br />
+      <button onClick={sampleUseState}>useStateを試してみる</button>
+    </div>
+  )
+```
+
+ここでtailwindcssの紹介
+
+[Tailwindcss](https://v1.tailwindcss.com/components/forms)
+
+Tailwindcssはクラスに指定する感じでいい感じのデザインにしてくれるいい感じのものです。
+最初の環境構築の時に設定したものがいい感じに効果を発揮してくれます。
+
+なので[このサイト](https://v1.tailwindcss.com/components/forms)へ訪れていい感じのデザインを使ってしまいましょう！！
+
+現時点ではこのような形になります。
+
+![入力エリア追加](/images/react-articles/inputform.png)
+
+さて入力エリアはできたので、次は入力した値を反映させる必要があります。
+
+手順は以下の流れです。
+
+1. 入力値を渡せるようにする
+2. 入力値をconsole.logで確認する
+3. 実際の秘密鍵を入力してアカウントを作成してみる
+
+では確認していきましょう。
+
+まず実施したいことは入力した値を変数に格納します。
+先ほど作成したuseStateを使用したprivateKeyに格納します。
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+const [privateKey, setPrivateKey] = useState('')
+```
+
+privateKeyの中に新たに値を更新したい時はsetPrivateKeyを使用します
+
+onChangeのプロパティを実行して
+(e)の中には更新した内容が入っています。
+その中でe.target.valueが入力した内容になっています。
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+<input 
+  onChange={(e) => setPrivateKey(e.target.value)}
+  className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" />
+```
+
+![初期値](/images/react-articles/onChange.png)
+
+さてコンソールのところですが、秘密鍵の後には空白が入っています。
+ではこの中にtestと入力してみます。
+
+![入力後](/images/react-articles/onChangeAfter.png)
+
+その時のコンソールを見てみます。
+
+![コンソール](/images/react-articles/onChangeConsole.png)
+
+入力した文字が一文字ずつ更新されています
+
+こういった形でいい具合にprivateKeyに入力した文字を格納することができました。
+
+:::message
+これは入力値が更新される度にこのCreateFromPrivateKey.tsxが更新されると思ってください。
+毎回更新されるのを防ぐためにはevent.preventDefaultを使用してください
+:::
+
+[イベントプリベントデフォルト](https://developer.mozilla.org/ja/docs/Web/API/Event/preventDefault)
+
+最後に秘密鍵を入力してみましょう。
+
+できました！！
+
+![完成](/images/react-articles/onChangeFinish.png)
+
+さて進捗を確認しましょう。
+
+現時点でアドレスの生成は完了しました！！（おめでとう！！）
+
+[進捗](https://docs.google.com/spreadsheets/d/1-WTAIUGgQmJ34JLCK3tkPtZqv57FRAL9hrGggieKvig/edit?usp=sharing)
+
+[この時点でのソースコード](https://github.com/nemtus/symbol-sample-react/tree/use-state)
+
+## パブリックキーの取得
+
+まずは不要なコンポーネントを非表示にします。
+コメントアウトしているところは削除してもらって大丈夫です！！
+
+``` tsx:src/App.tsx
+import logo from './logo.svg'
+import './App.css'
+import CreateFromPrivateKey from './component/CreateFromPrivateKey'
+// import GenerateNewAccount from './component/GenerateNewAccount'
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <CreateFromPrivateKey></CreateFromPrivateKey>
+        {/* <GenerateNewAccount></GenerateNewAccount> */}
+      </header>
+    </div>
+  )
+}
+
+export default App
+```
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+import React, { useState } from 'react'
+import { Account, NetworkType } from 'symbol-sdk'
+
+const CreateFromPrivateKey = () => {
+  const [privateKey, setPrivateKey] = useState('')
+  console.log('秘密鍵', privateKey)
+
+  // const sampleUseState = () => {
+  //   setPrivateKey(
+  //     '7B20E0615755D6EEDA0DAB45E5D8A4331EC603F8702D7F4E6171FB81CF83CF78'
+  //   )
+  // }
+
+  const accountCreateFromPrivateKey = () => {
+    const account = Account.createFromPrivateKey(
+      privateKey,
+      NetworkType.TEST_NET
+    )
+    console.log(
+      'Your account address is:',
+      account.address.pretty(),
+      'and its private key',
+      account.privateKey
+    )
+  }
+  return (
+    <div>
+      <input 
+      onChange={(e) => setPrivateKey(e.target.value)}
+      className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" />
+      <br />
+      <button onClick={accountCreateFromPrivateKey}>
+        秘密鍵からアカウントを作成する
+      </button>
+      {/* <br />
+      <button onClick={sampleUseState}>useStateを試してみる</button> */}
+    </div>
+  )
+}
+
+export default CreateFromPrivateKey
+```
+
+さて、続きです。
+
+今回はアカウントと公開鍵を取得します。
+
+以下手順です。
+
+1. アドレスの取得方法を確認する
+2. アドレスを取得する
+3. 公開鍵を取得する方法を確認する
+4. 公開鍵を取得する
+5. アプリケーションに表示する
+
+さて実施しましょう。
+
+まずはアドレスの取得方法です。
+
+アドレスは前回のところで実施しました、秘密鍵の生成から
+account.address.pretty()で取得できたことを覚えていますか？
+
+![アドレスの取得](/images/react-articles/privateKeyGenerateConsole.png)
+
+これでアドレスは取得できました。
+
+次に公開鍵を取得します
+
+公開鍵の取得方法は秘密鍵から生成した時に
+
+account.publicKey
+
+で取得できます。
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+const accountCreateFromPrivateKey = () => {
+    const account = Account.createFromPrivateKey(
+      privateKey,
+      NetworkType.TEST_NET
+    )
+    console.log(
+      'アドレス',
+      account.address.pretty(),
+      '公開鍵',
+      account.publicKey,
+      '秘密鍵',
+      account.privateKey
+    )
+  }
+```
+
+![公開鍵を取得](/images/react-articles/getPublicKey.png)
+
+さて、これでアドレスと公開鍵が取得できましたのであとはアプリケーションに表示します。
+
+ここで先ほど使用したuseStateを使用します。
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+import React, { useState } from 'react'
+import { Account, NetworkType } from 'symbol-sdk'
+
+const CreateFromPrivateKey = () => {
+  const [privateKey, setPrivateKey] = useState('')
+  const [address, setAddress] = useState('')
+  const [publicKey, setPublicKey] = useState('')
+  console.log('秘密鍵', privateKey)
+
+  const accountCreateFromPrivateKey = () => {
+    const account = Account.createFromPrivateKey(
+      privateKey,
+      NetworkType.TEST_NET
+    )
+    setAddress(account.address.pretty())
+    setPublicKey(account.publicKey)
+  }
+  return (
+    <div>
+      <input
+        onChange={(e) => setPrivateKey(e.target.value)}
+        className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <br />
+      <button onClick={accountCreateFromPrivateKey}>
+        秘密鍵からアカウントを作成する
+      </button>
+      <p>アドレス: {address}</p>
+      <p>公開鍵: {publicKey}</p>
+    </div>
+  )
+}
+
+export default CreateFromPrivateKey
+```
+
+まずは箱を設定するuseStateを二つ用意します。
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+  const [address, setAddress] = useState('')
+  const [publicKey, setPublicKey] = useState('')
+```
+
+アカウントを作成するアドレスや公開鍵が取得できるので
+取得した内容をsetAddressやsetPublicKeyを使用して
+変数の中身を入れ替えます。
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+  const accountCreateFromPrivateKey = () => {
+    const account = Account.createFromPrivateKey(
+      privateKey,
+      NetworkType.TEST_NET
+    )
+    setAddress(account.address.pretty())
+    setPublicKey(account.publicKey)
+  }
+```
+
+あとはuseStateの変数を表示します。
+変数を表示する場合は{}（カーリーブラケットもしくは波括弧）を使用します。
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+  <button onClick={accountCreateFromPrivateKey}>
+    秘密鍵からアカウントを作成する
+  </button>
+  <p>アドレス: {address}</p>
+  <p>公開鍵: {publicKey}</p>
+```
+
+こんな感じで表示できました。
+
+![アドレスとパブリックキーを取得](/images/react-articles/addressPublicKeyGet.png)
+
+[進捗](https://docs.google.com/spreadsheets/d/1-WTAIUGgQmJ34JLCK3tkPtZqv57FRAL9hrGggieKvig/edit?usp=sharing)
+
+[現在のソースコード](https://github.com/nemtus/symbol-sample-react/tree/publickey_get)
 
 ## アカウント情報表示ページの実装
 
