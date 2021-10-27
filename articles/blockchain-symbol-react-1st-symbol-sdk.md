@@ -1275,6 +1275,375 @@ export default CreateFromPrivateKey
 
 [現在のソースコード](https://github.com/nemtus/symbol-sample-react/tree/publickey_get)
 
+## 保有モザイクとインポータンスの取得
+
+さて、次は保有モザイクとインポータンスの取得です。
+
+こういった情報はアカウント情報として全て格納されていますので（便利ですね）
+
+なので手順としては
+
+1. アカウント情報の取得方法を確認する
+2. 実際に取得してみる
+3. 表示する
+
+の３ステップになります。
+
+頑張ってやっていきましょう！！
+
+さてアカウントの取得方法はこちらです。
+
+[アカウント情報の取得](https://docs.symbolplatform.com/ja/guides/account/getting-account-information.html)
+
+[コード](https://github.com/symbol/symbol-docs/blob/main/source/resources/examples/typescript/account/GettingAccountInformation.ts)
+
+取得する方法を確認しましょう。
+
+アカウント情報を取得するために必要な要素は合計で5つです。
+
+1. アドレス
+2. アカウント
+3. ノードURL
+4. リポジトリファクトリ
+5. アカウントHTTP
+
+それでは一つずつ見ていきたいと思います。
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+import React, { useState } from 'react'
+import {
+  Account, // 追加
+  NetworkType,
+  Address,
+  RepositoryFactoryHttp, // 追加
+} from 'symbol-sdk'
+
+const CreateFromPrivateKey = () => {
+  const [privateKey, setPrivateKey] = useState('')
+  const [address, setAddress] = useState('')
+  const [publicKey, setPublicKey] = useState('')
+  console.log('秘密鍵', privateKey)
+
+// ここから追加
+  const accountInfo = () => {
+    const accountAddress = Address.createFromRawAddress(address)
+    console.log("アカウントアドレス",accountAddress)
+    const nodeUrl = 'http://ngl-dual-101.testnet.symboldev.network:3000'
+    console.log("ノードURL",nodeUrl)
+    const repositoryFactory = new RepositoryFactoryHttp(nodeUrl)
+    console.log("リポジトリファクトリ",repositoryFactory)
+    const accountHttp = repositoryFactory.createAccountRepository()
+    console.log("アカウントHttp",accountHttp)
+    accountHttp.getAccountInfo(accountAddress).subscribe(
+      (accountInfo) => console.log(accountInfo),
+      (err) => console.error(err),
+    );
+  }
+// ここまで追加
+
+  const accountCreateFromPrivateKey = () => {
+    const account = Account.createFromPrivateKey(
+      privateKey,
+      NetworkType.TEST_NET
+    )
+    setAddress(account.address.pretty())
+    setPublicKey(account.publicKey)
+  }
+  return (
+    <div>
+      <input
+        onChange={(e) => setPrivateKey(e.target.value)}
+        className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <br />
+      <button onClick={accountCreateFromPrivateKey}>
+        秘密鍵からアカウントを作成する
+      </button>
+      <p>アドレス: {address}</p>
+      <p>公開鍵: {publicKey}</p>
+      {/* ここを追加 */}
+      <button onClick={accountInfo}>アカウント情報を取得する</button>
+      {/* ここまでを追加 */}
+    </div>
+  )
+}
+
+export default CreateFromPrivateKey
+```
+
+はい、では見ていきます。
+
+まずはアカウントアドレスです。
+このアカウントアドレスのコンソールを確認すると
+
+![アカウントアドレスコンソール](/images/react-articles/accountAddress.png)
+
+オブジェクトの型で以下のようなデータになっています。
+
+``` json:console
+{
+    "address": "TBUKFL3BMEXYBDQYBV5Y7UOWNRM3TDRZ4PNFCZQ",
+    "networkType": 152
+}
+```
+
+このアドレスとネットワーク情報があるオブジェクトが今後必要になるということです。
+なのでこの部分はもし知っている場合や固定する場合はわざわざcreateFromRawAddressを呼び出す必要もなくなります。
+
+次にノードURLです。
+これはURLをそのまま打ち込んだだけですので特に問題ないかと思います。
+
+![ノードURL](/images/react-articles/nodeURL.png)
+
+次にリポジトリファクトリです
+ノードのURLから新しくリポジトリファクトリを作成しています。
+中身は僕もそんなによくわかっていませんので、下手に解説しません。
+こんな感じのものが必要なんだなと思っておいてください。（僕もわかりません）
+
+``` json:console
+{
+    "url": "http://ngl-dual-101.testnet.symboldev.network:3000",
+    "networkType": {
+        "_isScalar": false,
+        "source": {
+            "_isScalar": false
+        }
+    },
+    "networkProperties": {
+        "_isScalar": false,
+        "source": {
+            "_isScalar": false
+        }
+    },
+    "epochAdjustment": {
+        "_isScalar": false,
+        "source": {
+            "_isScalar": false
+        }
+    },
+    "generationHash": {
+        "_isScalar": false
+    },
+    "nodePublicKey": {
+        "_isScalar": false
+    },
+    "websocketUrl": "http://ngl-dual-101.testnet.symboldev.network:3000/ws",
+    "networkCurrencies": {
+        "_isScalar": false,
+        "source": {
+            "_isScalar": false
+        }
+    }
+}
+```
+
+そしてアカウントHTTPです。
+ここも少々お待ちください。なぜこれを使うのかわかっていません。
+とにかく今わかっているのは、これが必要なのでコピペしているということです。
+
+``` json:console
+{
+    "url": "http://ngl-dual-101.testnet.symboldev.network:3000",
+    "accountRoutesApi": {
+        "configuration": {
+            "configuration": {
+                "basePath": "http://ngl-dual-101.testnet.symboldev.network:3000"
+            }
+        },
+        "middleware": []
+    }
+}
+```
+
+さてアカウント情報を取得するというボタンを押した方は
+以下の情報が取得できているはずです。
+この中に保有モザイクとインポータンスが存在します。
+
+``` json:console
+{
+    "version": 1,
+    "recordId": "6179331BD42C4799D0EBB887",
+    "address": {
+        "address": "TBA6Z5KQ772LGYDJ2RC72PPV4HHBLPDKNQHWL5A",
+        "networkType": 152
+    },
+    "addressHeight": {
+        "lower": 506108,
+        "higher": 0
+    },
+    "publicKey": "595D63553130DD117EFA7583F6735FBF6C7A9020BBFCFBDFEC20163BA2D479CA",
+    "publicKeyHeight": {
+        "lower": 506110,
+        "higher": 0
+    },
+    "accountType": 0,
+    "supplementalPublicKeys": {},
+    "activityBucket": [],
+    // モザイク
+    "mosaics": [
+        {
+            "id": {
+                "id": {
+                    "lower": 94036284,
+                    "higher": 153060222
+                }
+            },
+            "amount": {
+                "lower": 47938864,
+                "higher": 0
+            }
+        }
+    ],
+    // インポータンス
+    "importance": {
+        "lower": 0,
+        "higher": 0
+    },
+    "importanceHeight": {
+        "lower": 0,
+        "higher": 0
+    }
+}
+```
+
+さて保有モザイクとインポータンスの居場所もわかったのであとはそれを表示しましょう。
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+  import React, { useState } from 'react'
+import {
+  Account,
+  NetworkType,
+  Address,
+  RepositoryFactoryHttp,
+  Mosaic,
+} from 'symbol-sdk'
+
+const CreateFromPrivateKey = () => {
+  const [privateKey, setPrivateKey] = useState('')
+  const [address, setAddress] = useState('')
+  const [publicKey, setPublicKey] = useState('')
+  const [mosaics, setMosaics] = useState<Mosaic[]>([])
+  const [importance, setImportance] = useState({
+    lower: 0,
+    higher: 0,
+  })
+  console.log(mosaics)
+
+  const accountInfo = () => {
+    const accountAddress = Address.createFromRawAddress(address)
+    const nodeUrl = 'http://ngl-dual-101.testnet.symboldev.network:3000'
+    const repositoryFactory = new RepositoryFactoryHttp(nodeUrl)
+    const accountHttp = repositoryFactory.createAccountRepository()
+    accountHttp.getAccountInfo(accountAddress).subscribe(
+      (accountInfo) => {
+        console.log(accountInfo)
+        setMosaics(accountInfo.mosaics)
+        setImportance(accountInfo.importance)
+      },
+      (err) => console.error(err)
+    )
+  }
+
+  const accountCreateFromPrivateKey = () => {
+    const account = Account.createFromPrivateKey(
+      privateKey,
+      NetworkType.TEST_NET
+    )
+    setAddress(account.address.pretty())
+    setPublicKey(account.publicKey)
+  }
+  return (
+    <div>
+      <input
+        onChange={(e) => setPrivateKey(e.target.value)}
+        className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <br />
+      <button onClick={accountCreateFromPrivateKey}>
+        秘密鍵からアカウントを作成する
+      </button>
+      <p>アドレス: {address}</p>
+      <p>公開鍵: {publicKey}</p>
+      <button onClick={accountInfo}>アカウント情報を取得する</button>
+      {mosaics[0] && importance && (
+        <>
+          <p>モザイク総量{mosaics[0].amount.higher}</p>
+          <p>モザイク総量{mosaics[0].amount.lower}</p>
+          <p>モザイクID{mosaics[0].id.id.lower}</p>
+          <p>モザイクID{mosaics[0].id.id.higher}</p>
+          <p>インポータンスローワー{importance.lower}</p>
+          <p>インポータンスハイター{importance.higher}</p>
+        </>
+      )}
+    </div>
+  )
+}
+
+export default CreateFromPrivateKey
+
+```
+
+:::message
+モザイクが複数ある場合はモザイクのIDを識別子(key)
+として実施してみてください。
+これでうまくいくはずです。
+forを実施するときにkeyが一意（それぞれ違うものでないといけない）
+というルールがあるらしく、そのルールに従う感じです。
+:::
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+  const mosaicList = () => {
+    const items = []
+    for (let i = 0; i < mosaics.length; i++) {
+      items.push(
+        <li key={mosaics[i].id.id.higher}>
+          モザイクハイター{mosaics[i].amount.higher}<br/>
+          モザイクローワ{mosaics[i].amount.lower}<br/>
+          モザイクIDローワ{mosaics[i].id.id.lower}<br/>
+          モザイクIDハイター{mosaics[i].id.id.higher}
+        </li>
+      )
+    }
+    return <ul>{items}</ul>
+  }
+
+  {mosaics && importance && (
+        <>
+          {mosaicList()}
+          <p>インポータンスローワー{importance.lower}</p>
+          <p>インポータンスハイター{importance.higher}</p>
+        </>
+      )}
+```
+
+ちょっとここの解説が頼りないので
+
+リポジトリファクトリとアカウントHTTP
+モザイクに含まれるlowerやhigherが何を意味しているのか
+後ほど解説できればと思います。
+
+リポジトリファクトリはSymbolのAPIに繋ぐためのクライアントを作るためのクラスです。
+コンストラクタ引数にAPIのエンドポイントの設定するので、これを使うことでAPIに接続するための設定を共通化できます
+
+[リポジトリファクトリ](https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/0.18.1/classes/_infrastructure_repositoryfactoryhttp_.repositoryfactoryhttp.html)
+
+AccountHttpはアカウントの情報を取得するエンドポイントに接続するためのクライアントです
+
+[accountHttp](https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/0.18.1/classes/_infrastructure_accounthttp_.accounthttp.html)
+
+[進捗](https://docs.google.com/spreadsheets/d/1-WTAIUGgQmJ34JLCK3tkPtZqv57FRAL9hrGggieKvig/edit?usp=sharing)
+
+[ソースコード](https://github.com/nemtus/symbol-sample-react/tree/account_have_mosaic)
+
+## デザイン編
+
+さて、ここまでは機能の確認をしました。
+次はデザインを確認していきます。
+
+
+
+7B20E0615755D6EEDA0DAB45E5D8A4331EC603F8702D7F4E6171FB81CF83CF78 
+
 ## アカウント情報表示ページの実装
 
 ## まとめ
