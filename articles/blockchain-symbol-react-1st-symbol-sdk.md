@@ -21,10 +21,6 @@ published: true
 
 ## 要約
 
-画像テスト
-ペーこぺこぺこぺこぺこ！
-![ぺこーら](/images/react-articles/0346E5C8-DFF9-4658-9D92-BF3B3CF96800.jpeg)
-
 当記事は著作権、人格権、財産権を侵害する目的はございません。
 報道、批評、研究を目的としており、記事内の素材は全て下記のいずれかに該当します
 ・当方が独自に作成したもの
@@ -46,53 +42,15 @@ published: true
 
 ## Symbolとは
 
-Symbolとは、NEMブロックチェーンの新世代バージョンとして、長い開発期間を経て、2021年3月17日にローンチされた、パブリックブロックチェーンです。
-
-Symbolの前バージョンのNEM(NIS1)には以下のような特徴がありました。
-
-- 利用しやすいAPI
-- 開発者が独自にコントラクトを実装せずとも利用可能なようにブロックチェーン自体に実装済の豊富な機能
-
-Symbolでは、前バージョンのNEM(NIS1)の良さを継承しつつ、以下のような大幅な機能追加と性能改善と設計の見直しが行われました。
-
-- 分散された多数のノードが自律的に維持されるようなインセンティブ設計
-- スケーラビリティ等の性能改善
-- 複数のトランザクションをまとめて実行する機能の追加によるトークンのトラストレスな交換等のサポート
-- ブロックチェーン上に、より柔軟にデータを刻むことが可能な機能の追加
-
-詳細は以下の公式なドキュメントをご参照ください。
-
-- Symbol公式ドキュメント [https://docs.symbolplatform.com/ja/index.html](https://docs.symbolplatform.com/ja/index.html)
-- NEM公式ドキュメント [https://nem.io/](https://nem.io/)
+[記事の参照](https://zenn.dev/nemtus/articles/blockchain-symbol-angular-1st-symbol-sdk#symbol%E3%81%A8%E3%81%AF)
 
 ## symbol-sdkとは
 
-Symbolブロックチェーンでは、APIノードが公開しているAPIを利用した開発を行うことになります。
-
-API呼び出し等の処理を自前で実装しても良いのですが、以下のようにTypeScriptがサポートされたSDKがsymbol-sdkというnpmパッケージとして公式にリリースされているので、そちらを使用すると便利でしょう。
-
-- symbol-sdk GitHubレポジトリ [https://github.com/symbol/symbol-sdk-typescript-javascript](https://github.com/symbol/symbol-sdk-typescript-javascript)
-- symbol-sdk npmパッケージ [https://www.npmjs.com/package/symbol-sdk](https://www.npmjs.com/package/symbol-sdk)
-- 公式ドキュメント symbol-sdk 使用方法ガイド アカウント情報取得 [https://docs.symbolplatform.com/ja/guides/account/getting-account-information.html#method-01-using-the-sdk](https://docs.symbolplatform.com/ja/guides/account/getting-account-information.html#method-01-using-the-sdk)
-
-なお、symbol-sdkでは、後述するrxjsが積極的に使用されています。rxjsは使いこなすことができると非常に便利なのですが、学習コストは高めで、積極的な使用には賛否が分かれるところではあると思います。好みによってはPromiseに置き換えて使用するという戦略もあるかもしれませんので、案件に応じてご検討頂くとよろしいかと思います。
+[記事の参照](https://zenn.dev/nemtus/articles/blockchain-symbol-angular-1st-symbol-sdk#symbol-sdk%E3%81%A8%E3%81%AF)
 
 ## rxjsとは
 
-前述の通り、symbol-sdkの中では、rxjsが積極的に利用されています。
-
-rxjsでは、非同期なデータを、Observableという川の流れのような概念に見立てて、流れを生み出す機能や、流れをモニタリングして上流から流れを受け取って加工した上で下流に流す機能や、流れをモニタリングして何かが流れてきたら何らかの処理を行う機能等が提供されています。
-
-Promise, Thenの仕組みが1回限りの非同期処理の完了を待って次の作業を行うのと似ていますが、rxjsでは1回限りではなく連続した流れを継続的に扱うための仕組みが提供されているとも言えるでしょう。
-
-rxjsは多くの方に取って、それなりに学習コストが大きいものと思いますが、データの流れや、各種オペレーターの動作をイメージできるようになると、REST APIやWeb Socket等の非同期な通信処理をきわめて柔軟に効率よく記述することが可能となります。
-
-しかし、rxjsのオフィシャルなドキュメントを初見で読むと、処理の種類があまりにも豊富にあることと、言葉で説明された処理の概念や内容がとても意味不明に感じられてつらいと思います。
-
-rxjs習得における個人的なおすすめは、基礎的な概念(≒Observableという概念)やメジャーなオペレーター(map, mergeMap, combineLatest)に絞って、以下のマーブル図や簡易的な説明でイメージを固めつつ、イメージが固まったら必要に応じて公式サイト等のドキュメントも参考にしつつsymbol-sdkやAngularのようなrxjsを使うコードをちょっとだけ書いてみて動作を試すのが良いと思います。
-
-- rxjs マーブル図 [https://rxmarbles.com/](https://rxmarbles.com/)
-- rxjs 公式サイト [https://rxjs.dev/](https://rxjs.dev/)
+[記事の参照](https://zenn.dev/nemtus/articles/blockchain-symbol-angular-1st-symbol-sdk#rxjs%E3%81%A8%E3%81%AF)
 
 ## Reactとは
 
@@ -114,7 +72,7 @@ AngularやVueやStencilなど色々フレームワークがありますが、
 基本的に安定バージョンが入っていれば問題はないのですが、
 時たまバージョンの都合でうまくいきませんということもあるので、
 その時はまずは落ち着きましょう！
-![まだ慌てるような時間ではない](/images/react-articles/unnamed.jpeg)
+![まだ慌てるような時間ではない](/images/react-articles/madaawateru.png)
 
 ```sh:terminal
 $ node -v
@@ -266,7 +224,7 @@ touch .prettierrc
 正直僕はどっちでもいいですがこの「ツギハギ漂流作家」から大事なことを学びましょう！！
 :::
 
-![参考画像](/images/react-articles/blog1558.jpeg)
+![参考画像](/images/react-articles/tugihagi.png)
 
 :::message
 ポイントは「何で作るかではなく、何を作るか？」です。
@@ -298,6 +256,10 @@ npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-c
 現時点でのリポジトリはこちら
 [tailwindcss導入](https://github.com/nemtus/symbol-sample-react/tree/tailwind-css)
 
+### この章のまとめ
+
+環境構築は結構大事です。
+
 ## アプリケーション作成のためのタスク管理
 
 さてさて、これで環境構築ができました。
@@ -327,6 +289,10 @@ npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-c
 以下デザインチェックを実施した資料になります。
 
 [デザインチェック](https://docs.google.com/presentation/d/1ayIrqPLpvPRRpsTsl8JnDY632EaCRklmF8PQZXjsYLk/edit?usp=sharing)
+
+### この章のまとめ
+
+何を作るかを書き出すのはとても大事！！
 
 ## 機能確認
 
@@ -1508,6 +1474,16 @@ export default CreateFromPrivateKey
 
 さて保有モザイクとインポータンスの居場所もわかったのであとはそれを表示しましょう。
 
+:::message
+モザイクや残高の情報などは扱う数字の桁数が多く
+
+lowerある桁数から下
+higherある桁数から上
+
+のように区切って取得しています。
+なのであとでくっつけないといけないです。
+:::
+
 ``` tsx:src/components/CreateFromPrivateKey.tsx
   import React, { useState } from 'react'
 import {
@@ -1618,10 +1594,6 @@ forを実施するときにkeyが一意（それぞれ違うものでないと�
 
 ちょっとここの解説が頼りないので
 
-リポジトリファクトリとアカウントHTTP
-モザイクに含まれるlowerやhigherが何を意味しているのか
-後ほど解説できればと思います。
-
 リポジトリファクトリはSymbolのAPIに繋ぐためのクライアントを作るためのクラスです。
 コンストラクタ引数にAPIのエンドポイントの設定するので、これを使うことでAPIに接続するための設定を共通化できます
 
@@ -1630,6 +1602,185 @@ forを実施するときにkeyが一意（それぞれ違うものでないと�
 AccountHttpはアカウントの情報を取得するエンドポイントに接続するためのクライアントです
 
 [accountHttp](https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/0.18.1/classes/_infrastructure_accounthttp_.accounthttp.html)
+
+この辺りはREST APIの知識にも繋がってくるので一度学習されることをお勧めします。
+
+[RESTAPI](https://www.redhat.com/ja/topics/api/what-is-a-rest-api)
+
+:::message
+ですが今は、こう言う風に書いたら動いた!!
+なぜだかわからないけど、こんな感じで書いたら動いた!!
+と言う体験を重要視しているので、そんなに気にしなくていいです。
+:::
+
+## 必要な情報をまとめる
+
+lowerやhigherなどが出てきたのでその情報を加工できるようにしましょう。
+
+モザイクはtoHex()でまとめる
+インポータンスはstringで表示する
+モザイクの総量はstringで表示する
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+const mosaicList = () => {
+  const items = []
+  for (let i = 0; i < mosaics.length; i++) {
+    items.push(
+      <li key={mosaics[i].id.id.lower}>
+        モザイクID: {mosaics[i].id.id.toHex()}------モザイクの総量: {mosaics[i].amount.toString()}
+      </li>
+    )
+  }
+  return <ul>{items}</ul>
+}
+
+// -----中略--------
+
+{mosaics && importance && (
+  <>
+    {mosaicList()}
+    <p>インポータンス: {importance.toString()}</p>
+  </>
+)}
+```
+
+useStateを使えるようにする
+
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+import React, { useState, useEffect, useCallback } from 'react'
+
+  const accountInfo = useCallback(() => {
+    const accountAddress = Address.createFromRawAddress(address)
+    const nodeUrl = 'http://ngl-dual-101.testnet.symboldev.network:3000'
+    const repositoryFactory = new RepositoryFactoryHttp(nodeUrl)
+    const accountHttp = repositoryFactory.createAccountRepository()
+    accountHttp.getAccountInfo(accountAddress).subscribe(
+      (accountInfo) => {
+        console.log(accountInfo)
+        setPublicKey(accountInfo.publicKey)
+        setMosaics(accountInfo.mosaics)
+        setImportance(accountInfo.importance)
+      },
+      (err) => console.error(err)
+    )
+  }, [address])
+
+  useEffect(() => {
+    accountInfo()
+  }, [address, accountInfo])
+```
+
+使い方としてはある変数が変更になったときに動きましょう！！
+といった感じです。
+
+useEffectの中でaccountInfoを呼び出しているのでaccountInfoをuseCallbackで
+囲ってあげます。
+
+そうすると警告は消えます。
+
+:::message
+ちなみにuseCallbackを使用しなくても想定通りの動きはしますが、
+warningは基本的に解消できますので積極的に実施していきましょう！！
+:::
+
+ここまでのソースコードになります
+
+``` tsx:src/components/CreateFromPrivateKey.tsx
+import React, { useState, useEffect, useCallback } from 'react'
+import {
+  Account,
+  NetworkType,
+  Address,
+  RepositoryFactoryHttp,
+  Mosaic,
+} from 'symbol-sdk'
+
+const CreateFromPrivateKey = () => {
+  const [privateKey, setPrivateKey] = useState('')
+  const [address, setAddress] = useState(
+    'TCUKQQFP6XTIIA2WLHUUGHVFPE62OIMGWUP7SHY'
+  )
+  const [publicKey, setPublicKey] = useState('')
+  const [mosaics, setMosaics] = useState<Mosaic[]>([])
+  const [importance, setImportance] = useState({
+    lower: 0,
+    higher: 0,
+  })
+
+
+
+  const mosaicList = () => {
+    const items = []
+    for (let i = 0; i < mosaics.length; i++) {
+      items.push(
+        <li key={mosaics[i].id.id.lower}>
+          モザイクID: {mosaics[i].id.id.toHex()}------モザイクの総量: {mosaics[i].amount.toString()}
+        </li>
+      )
+    }
+    return <ul>{items}</ul>
+  }
+
+  const accountInfo = useCallback(() => {
+    const accountAddress = Address.createFromRawAddress(address)
+    const nodeUrl = 'http://ngl-dual-101.testnet.symboldev.network:3000'
+    const repositoryFactory = new RepositoryFactoryHttp(nodeUrl)
+    const accountHttp = repositoryFactory.createAccountRepository()
+    accountHttp.getAccountInfo(accountAddress).subscribe(
+      (accountInfo) => {
+        console.log(accountInfo)
+        setPublicKey(accountInfo.publicKey)
+        setMosaics(accountInfo.mosaics)
+        setImportance(accountInfo.importance)
+      },
+      (err) => console.error(err)
+    )
+  }, [address])
+
+  useEffect(() => {
+    accountInfo()
+  }, [address, accountInfo])
+
+  function accountCreateFromPrivateKey() {
+    const account = Account.createFromPrivateKey(
+      privateKey,
+      NetworkType.TEST_NET
+    )
+    setAddress(account.address.pretty())
+    setPublicKey(account.publicKey)
+  }
+  return (
+    <div>
+      <input
+        onChange={(e) => setPrivateKey(e.target.value)}
+        className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <br />
+      <button onClick={accountCreateFromPrivateKey}>
+        秘密鍵からアカウントを作成する
+      </button>
+      <p>アドレス: {address}</p>
+      <p>公開鍵: {publicKey}</p>
+      {mosaics && importance && (
+        <>
+          {mosaicList()}
+          <p>インポータンス: {importance.toString()}</p>
+        </>
+      )}
+    </div>
+  )
+}
+
+export default CreateFromPrivateKey
+
+```
+
+これで秘密鍵を入力すると
+アカウントが作成されて色々情報も自動的に更新されるようになりました。
+
+またuseEffectやuseCallbackなどは結構解説が大変なのですが、
+Udemyなどでいい教材たくさんあるのでセール期間中に購入して実施されることをお勧めします。
 
 [進捗](https://docs.google.com/spreadsheets/d/1-WTAIUGgQmJ34JLCK3tkPtZqv57FRAL9hrGggieKvig/edit?usp=sharing)
 
@@ -1640,9 +1791,13 @@ AccountHttpはアカウントの情報を取得するエンドポイントに接
 さて、ここまでは機能の確認をしました。
 次はデザインを確認していきます。
 
+[こちらで確認したように](https://docs.google.com/presentation/d/1ayIrqPLpvPRRpsTsl8JnDY632EaCRklmF8PQZXjsYLk/edit?usp=sharing)
 
+一つずつ作っていきます。
 
-7B20E0615755D6EEDA0DAB45E5D8A4331EC603F8702D7F4E6171FB81CF83CF78 
+[タスクはこちら](https://docs.google.com/spreadsheets/d/1-WTAIUGgQmJ34JLCK3tkPtZqv57FRAL9hrGggieKvig/edit?usp=sharing)
+
+一つずつ作っていきましょう！！
 
 ## アカウント情報表示ページの実装
 
