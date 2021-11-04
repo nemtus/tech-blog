@@ -15,9 +15,9 @@ published: true
 
 以下URLでサンプルコードを実際に動かしているので、必要に応じてご参照ください。
 
-- サンプルページ(ホームページ) [https://symbol-sample-angular.nemtus.com](https://symbol-sample-angular.nemtus.com)
-- サンプルページ(アカウント情報表示ページ) [https://symbol-sample-angular.nemtus.com/explorer/accounts/NDLXI3OMXJCHO2A2ZD54TO4UZJQQV36DQYK33SA](https://symbol-sample-angular.nemtus.com/explorer/accounts/NDLXI3OMXJCHO2A2ZD54TO4UZJQQV36DQYK33SA) ... URL末尾のアドレスを変更することで、任意のアドレスの情報を表示できます。
-- サンプルページのGitHubレポジトリ [https://github.com/nemtus/symbol-sample-angular](https://github.com/nemtus/symbol-sample-angular)
+サンプルページは後ほどURLを共有
+
+[リポジトリ](https://github.com/nemtus/symbol-sample-react)
 
 ## 要約
 
@@ -161,6 +161,19 @@ craco.configの作成
 touch craco.config.js
 ```
 
+``` js:craco.config.js
+module.exports = {
+  style: {
+    postcss: {
+      plugins: [
+        require('tailwindcss'),
+        require('autoprefixer'),
+      ],
+    },
+  },
+}
+```
+
 ![参考画像](/images/react-articles/carco-config.png)
 
 tailwind.config.js, postcss.config.jsの生成
@@ -271,7 +284,8 @@ npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-c
 タスク自体の設定が間違っていたときに
 「詰まる」という状況になります。
 
-今回はGmailのアカウントを保有していればできる方法を採用します。
+今回の記事ではタスク管理にGoogleスプレッドシートを使用しました。
+Googleアカウントがあれば今回の記事でのタスク一覧を以下リンクから自由に参照できますので、必要に応じてご参照ください。
 
 [タスク管理](https://docs.google.com/spreadsheets/d/1-WTAIUGgQmJ34JLCK3tkPtZqv57FRAL9hrGggieKvig/edit?usp=sharing)
 
@@ -297,7 +311,7 @@ npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-c
 ## 機能確認
 
 次にどういった機能が必要なのかを考えます。
-機能的にはSymbol-SDKを使用したものが必要なのかな？という想定で
+機能的にはSymbol SDKを使用したものが必要なのかな？という想定で
 実施します。
 
 - アカウントの生成
@@ -350,9 +364,9 @@ npm start
 
 そもそもアカウントの生成方法はどのような方法があるのか？という話を考えます。
 
-Symbol-SDKでアカウントを作成する方法はいくつかあります。
+Symbol SDKでアカウントを作成する方法はいくつかあります。
 
-というわけなのでまずは機能を確認するだけなのでsrc/App.tsxにsymbol-sdkをimportしましょう。
+というわけなのでまずは機能を確認するだけなのでsrc/App.tsxにSymbol SDKをimportしましょう。
 
 ```tsx:src/App.tsx
 import { Account } from 'symbol-sdk'
@@ -1868,8 +1882,6 @@ NEMTUSとして、NEM, Symbolに関する様々な技術情報を継続的に発
 - 所属
   - 株式会社Opening Line
     - [https://www.opening-line.co.jp/](https://www.opening-line.co.jp/)
-  - NPO法人NEMTUS
-    - [https://nemtus.com/](https://nemtus.com/)
 - 略歴
   - 障がい者向けアプリケーションを作ろうとして、頑張った結果ブロックチェーンの企業で働いています。
 - SNS
