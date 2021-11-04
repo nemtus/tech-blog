@@ -394,7 +394,7 @@ import { Account } from 'symbol-sdk'
 
 ### 新規アカウントを作る方法
 
-Symbol-SDKからアカウントを新規に作成する方法は
+Symbol SDKからアカウントを新規に作成する方法は
 AccountとNetworkTypeが必要になります
 
 ```tsx:src/App.tsx
@@ -1292,9 +1292,9 @@ export default CreateFromPrivateKey
 ``` tsx:src/components/CreateFromPrivateKey.tsx
 import React, { useState } from 'react'
 import {
-  Account, // 追加
+  Account,
   NetworkType,
-  Address,
+  Address, // 追加
   RepositoryFactoryHttp, // 追加
 } from 'symbol-sdk'
 
@@ -1491,15 +1491,15 @@ export default CreateFromPrivateKey
 :::message
 モザイクや残高の情報などは扱う数字の桁数が多く
 
-lowerある桁数から下
-higherある桁数から上
+lower: ある桁数から下
+higher: ある桁数から上
 
 のように区切って取得しています。
 なのであとでくっつけないといけないです。
 :::
 
 ``` tsx:src/components/CreateFromPrivateKey.tsx
-  import React, { useState } from 'react'
+import React, { useState } from 'react'
 import {
   Account,
   NetworkType,
@@ -1561,8 +1561,8 @@ const CreateFromPrivateKey = () => {
           <p>モザイク総量{mosaics[0].amount.lower}</p>
           <p>モザイクID{mosaics[0].id.id.lower}</p>
           <p>モザイクID{mosaics[0].id.id.higher}</p>
-          <p>インポータンスローワー{importance.lower}</p>
-          <p>インポータンスハイター{importance.higher}</p>
+          <p>インポータンス{importance.lower}</p>
+          <p>インポータンス{importance.higher}</p>
         </>
       )}
     </div>
@@ -1587,10 +1587,10 @@ forを実施するときにkeyが一意（それぞれ違うものでないと�
     for (let i = 0; i < mosaics.length; i++) {
       items.push(
         <li key={mosaics[i].id.id.higher}>
-          モザイクハイター{mosaics[i].amount.higher}<br/>
-          モザイクローワ{mosaics[i].amount.lower}<br/>
-          モザイクIDローワ{mosaics[i].id.id.lower}<br/>
-          モザイクIDハイター{mosaics[i].id.id.higher}
+          モザイク総量{mosaics[i].amount.higher}<br/>
+          モザイク総量{mosaics[i].amount.lower}<br/>
+          モザイクID{mosaics[i].id.id.lower}<br/>
+          モザイクID{mosaics[i].id.id.higher}
         </li>
       )
     }
@@ -1600,8 +1600,8 @@ forを実施するときにkeyが一意（それぞれ違うものでないと�
   {mosaics && importance && (
         <>
           {mosaicList()}
-          <p>インポータンスローワー{importance.lower}</p>
-          <p>インポータンスハイター{importance.higher}</p>
+          <p>インポータンス{importance.lower}</p>
+          <p>インポータンス{importance.higher}</p>
         </>
       )}
 ```
@@ -1700,6 +1700,12 @@ warningは基本的に解消できますので積極的に実施していきま�
 
 ここまでのソースコードになります
 
+:::message alert
+addressの初期値を空白にするとtypescript側から警告が出ます。
+なのでaddressの初期値には実際に有効なsymbolウォレットのアドレスを設定しています。
+これはsymbolの特徴というよりtypescriptの特徴です。
+:::
+
 ``` tsx:src/components/CreateFromPrivateKey.tsx
 import React, { useState, useEffect, useCallback } from 'react'
 import {
@@ -1713,7 +1719,7 @@ import {
 const CreateFromPrivateKey = () => {
   const [privateKey, setPrivateKey] = useState('')
   const [address, setAddress] = useState(
-    'TCUKQQFP6XTIIA2WLHUUGHVFPE62OIMGWUP7SHY'
+    'TCUKQQFP6XTIIA2WLHUUGHVFPE62OIMGWUP7SHY' // ここに初期アドレスを設定しておいてください。
   )
   const [publicKey, setPublicKey] = useState('')
   const [mosaics, setMosaics] = useState<Mosaic[]>([])
@@ -1738,7 +1744,8 @@ const CreateFromPrivateKey = () => {
 
   const accountInfo = useCallback(() => {
     const accountAddress = Address.createFromRawAddress(address)
-    const nodeUrl = 'http://ngl-dual-101.testnet.symboldev.network:3000'
+    // ちょっとノードをhttpsに対応しているものにしています。
+    const nodeUrl = 'https://sym-test.opening-line.jp:3001/'
     const repositoryFactory = new RepositoryFactoryHttp(nodeUrl)
     const accountHttp = repositoryFactory.createAccountRepository()
     accountHttp.getAccountInfo(accountAddress).subscribe(
@@ -1856,6 +1863,464 @@ TailwindCSSでの心構え。
 
 [ここまでのソースコード](https://github.com/nemtus/symbol-sample-react/tree/header)
 
+:::details ホームコンポーネントの実装
+
+htmlタグでしか記載していませんので、特に解説は致しませんが、
+重要なポイントとしてアイコンを使用するときは
+heroiconsのjsxをコピーしてくるだけでOKといった感じです。
+
+``` tsx:アイコン例
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  className="h-6 w-6"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth={2}
+    d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01"
+  />
+</svg>
+```
+
+``` tsx:src/component/Home.tsx
+import React from 'react'
+import Github from '../images/logo-github.png'
+import Symbol from '../images/logo-symbol-color.png'
+import NumTus from '../images/logo-nemtus-color.png'
+import Twitter from '../images/logo-twitter-color.png'
+
+const Home = () => {
+  return (
+    <>
+      <div className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+        Home
+      </div>
+      <div className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+        <div className="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 rounded inline-flex items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01"
+            />
+          </svg>
+          <span className="ml-6">Note</span>
+        </div>
+
+        <p>
+          ・ブロックチェーンSymbolとSPAフレームワークReactを用いて作成しているWebアプリケーションのサンプルです。
+        </p>
+      </div>
+      <div className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+        <div className="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 rounded inline-flex items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01"
+            />
+          </svg>
+          <span className="ml-6">Disclaimer</span>
+        </div>
+        <p>
+          ・本サイトのご利用に際しては以下の点にご注意ください。
+          <br />
+          ・本サイトではSymbolを用いたWebアプリケーションの実装例を示すことに主眼をおいています。
+          <br />
+          ・本サイトでの実装は十分にテストされていない可能性があることを踏まえ、本サイトのご利用は、実装例を参考にしたり少額のXYMでの動作確認にとどめ、多額のXYMやクリティカルな情報を扱う操作を実行なさならいことを推奨します。
+          <br />
+          ・本サイトのご利用を通じて生じ得るいかなる問題に対してもNEMTUSとして一切の責任を取ることはできませんのでご注意ください。
+          <br />
+        </p>
+      </div>
+      <div className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+        <div className="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 rounded inline-flex items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01"
+            />
+          </svg>
+          <span className="ml-6">Reference</span>
+        </div>
+        <a
+          href="https://github.com/nemtus/symbol-sample-react"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mt-2 rounded w-full flex flex-grow items-center px-3">
+            <img src={Github} alt="github" />
+            <span className="ml-6">リポジトリ</span>
+          </button>
+        </a>
+        <a
+          href="https://docs.symbolplatform.com/ja/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full flex flex-grow items-center px-3 mt-2">
+            <img src={Symbol} alt="github" />
+            <span className="ml-6">Symbolドキュメント</span>
+          </button>
+        </a>
+        <a
+          href="https://nemtus.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full flex flex-grow items-center px-3 mt-2">
+            <img src={NumTus} alt="github" className="w-6" />
+            <span className="ml-6">nemtus</span>
+          </button>
+        </a>
+        <a
+          href="https://twitter.com/NemtusOfficial"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full flex flex-grow items-center px-3 mt-2">
+            <img src={Twitter} alt="github" />
+            <span className="ml-6">Twitter</span>
+          </button>
+        </a>
+      </div>
+    </>
+  )
+}
+
+export default Home
+
+```
+
+:::
+
+:::details サイドバーの実装
+
+ここで重要なポイントはアカウントページとホームページをどう切り換えるかです。
+useStateでisHomeという変数を持たせてそれがtrueならこのページを表示
+falseならこのページを表示みたいな切り分けをしています。
+今回はページルーターを実装するのが手間だったのと、表示するコンポーネントを切り替えるだけ
+だったのでこのような実装にしています。
+
+まずは動かしたい内容を決めてどのようにするかがポイントです。
+ページの内容を変更したい場合はルータだけでなくこういう方法もあるということです。
+
+
+``` tsx
+const [isHome, setIsHome] = useState(false)
+
+// trueの場合
+{isHome && <CreateFromPrivateKey></CreateFromPrivateKey>}
+// falseの場合
+{!isHome && <Home></Home>}
+```
+
+サイドバーの非表示、表示の切り替えも同様です。
+isClosedをfalseの状態で非表示
+trueの状態で表示となっています。
+
+``` tsx
+const [isClosed, setClosed] = useState(false)
+
+{!isClosed && (
+<aside
+  aria-hidden={isClosed}
+  className="bg-gray-800 w-64 min-h-screen flex flex-col text-white"
+>
+  <div className="border-r border-b px-4 h-10 flex items-center justify-between">
+    <span className="text-blue py-2">Symbol-React</span>
+  </div>
+
+  <div className="border-r py-4 flex-grow relative">
+    <nav>
+      <ul className="mt-12">
+        <li className="flex w-full justify-between text-white hover:text-gray-500 cursor-pointer items-center mb-6 m-4">
+          <button className="flex items-center" onClick={() => {setIsHome(false)}}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+              />
+            </svg>
+            <span className="text-sm  ml-2">Home</span>
+          </button>
+        </li>
+        <li className="flex w-full justify-between text-white hover:text-gray-500 cursor-pointer items-center  m-4">
+          <button className="flex items-center" onClick={() => {setIsHome(true)}}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span className="text-sm  ml-2">Account</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>
+)}
+```
+
+ヘッダーの部分のボタンの切り替えなどは三項演算子を使用しています。
+Reactを触っていたり、上手い人の実装を真似しているとこの実装が多いので参考にしています
+
+``` tsx
+<header className="bg-white border-b h-10 flex items-center justify-center">
+  {isClosed ? (
+    <button
+      tabIndex={1}
+      className="w-10 p-1"
+      aria-label="Open menu"
+      title="Open menu"
+      onClick={() => setClosed(false)}
+    >
+      <svg
+        aria-hidden="true"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  ) : (
+    <button
+      tabIndex={1}
+      className="w-10 p-1"
+      aria-label="Close menu"
+      title="Close menu"
+      onClick={() => setClosed(true)}
+    >
+      <svg
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  )}
+
+  <div className="flex flex-grow items-center px-3">
+    <h1 className="text-lg col-start-1 col-end-3">{!isHome ? "Home" : "Account"}</h1>
+    <div className="flex-grow"></div>
+    <a
+      href="https://docs.symbolplatform.com/ja/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img src={Symbol} alt="symbol" className="col-end-7 col-span-2" />
+    </a>
+    <a
+      href="https://nemtus.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img src={NemTus} alt="nemtus" className="w-6 m-2" />
+    </a>
+  </div>
+</header>
+```
+
+以下全文です。
+
+``` tsx:src/component/SideBar.tsx
+import React, { useState } from 'react'
+import CreateFromPrivateKey from './CreateFromPrivateKey'
+import Symbol from '../images/logo-symbol-color.png'
+import NemTus from '../images/logo-nemtus-color.png'
+import Home from './Home'
+
+const SideBar = () => {
+  const [isClosed, setClosed] = useState(false)
+  const [isHome, setIsHome] = useState(false)
+  return (
+    <div className="flex bg-gray-100 w-full">
+      {!isClosed && (
+        <aside
+          aria-hidden={isClosed}
+          className="bg-gray-800 w-64 min-h-screen flex flex-col text-white"
+        >
+          <div className="border-r border-b px-4 h-10 flex items-center justify-between">
+            <span className="text-blue py-2">Symbol-React</span>
+          </div>
+
+          <div className="border-r py-4 flex-grow relative">
+            <nav>
+              <ul className="mt-12">
+                <li className="flex w-full justify-between text-white hover:text-gray-500 cursor-pointer items-center mb-6 m-4">
+                  <button className="flex items-center" onClick={() => {setIsHome(false)}}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                    <span className="text-sm  ml-2">Home</span>
+                  </button>
+                </li>
+                <li className="flex w-full justify-between text-white hover:text-gray-500 cursor-pointer items-center  m-4">
+                  <button className="flex items-center" onClick={() => {setIsHome(true)}}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span className="text-sm  ml-2">Account</span>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </aside>
+      )}
+
+      <main className="flex-grow flex flex-col min-h-screen w-full">
+        <header className="bg-white border-b h-10 flex items-center justify-center">
+          {isClosed ? (
+            <button
+              tabIndex={1}
+              className="w-10 p-1"
+              aria-label="Open menu"
+              title="Open menu"
+              onClick={() => setClosed(false)}
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          ) : (
+            <button
+              tabIndex={1}
+              className="w-10 p-1"
+              aria-label="Close menu"
+              title="Close menu"
+              onClick={() => setClosed(true)}
+            >
+              <svg
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          )}
+
+          <div className="flex flex-grow items-center px-3">
+            <h1 className="text-lg col-start-1 col-end-3">{!isHome ? "Home" : "Account"}</h1>
+            <div className="flex-grow"></div>
+            <a
+              href="https://docs.symbolplatform.com/ja/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={Symbol} alt="symbol" className="col-end-7 col-span-2" />
+            </a>
+            <a
+              href="https://nemtus.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={NemTus} alt="nemtus" className="w-6 m-2" />
+            </a>
+          </div>
+        </header>
+        {isHome && <CreateFromPrivateKey></CreateFromPrivateKey>}
+        {!isHome && <Home></Home>}
+      </main>
+    </div>
+  )
+}
+
+export default SideBar
+```
+
+実装イメージとして
+以下のイメージ図を参考にしていただけますと幸いです。
+
+![こんな感じのコンポーネントをイメージしています](/images/react-articles/component.png)
+
+:::
+
 ## まとめ
 
 お疲れ様でした。
@@ -1866,6 +2331,28 @@ TailwindCSSでの心構え。
 2. 実際にアプリケーションを作るとSymbolの実装は結構少ないです（だからなんか寂しいんです）
 3. どちらかというとReactやTailwindCSSの方が面倒です（慣れるまでの辛抱です）
 4. 本人のペースを崩さす勉強していってください（他人のマウントを相手している時間はあなたにはありません。）
+
+となります。
+いや〜疲れましたね。ここまでやってちょっとわかった！！となってもらえれば嬉しいです。
+
+結局のところReactやTypescriptの解説が多かった気がしますが、
+要するにデータはsymbol-sdkで取得して、表示はReactでといったところです。
+
+Reactの解説が多かったのはsymbol-sdkの解説がそこまで不要なほどに作りがいいと思っています。（なのでちょっと寂しいのですが）
+
+解説量が多い=いい解説
+
+ではなく、
+
+この記事を読んでアプリを作ってみる人が増える=いい解説
+
+と思っていますので、ぜひとも何かしら作ってみるチャレンジをしていただけますと幸いです。
+
+最初はコピペでもいいんです。とにかく楽しんでもらえると幸いです。
+
+疲れた時は、音楽でも聞いてリラックスしましょう。
+
+[ラビィッ！！](https://www.youtube.com/watch?v=RiO8a9ErCBg)
 
 ## 最後に
 
