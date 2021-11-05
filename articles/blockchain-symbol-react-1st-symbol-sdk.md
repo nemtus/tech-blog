@@ -2372,4 +2372,4 @@ NEMTUSとして、NEM, Symbolに関する様々な技術情報を継続的に発
 - 略歴
   - 障がい者向けアプリケーションを作ろうとして、頑張った結果ブロックチェーンの企業で働いています。
 - SNS
-  - twitter: [https://twitter.com/salaryman_tousi](https://twitter.com/kazumasamatsumo)
+  - twitter: [https://twitter.com/kazumasamatsumo](https://twitter.com/kazumasamatsumo)
