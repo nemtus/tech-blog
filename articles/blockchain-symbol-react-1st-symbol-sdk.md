@@ -15,8 +15,6 @@ published: true
 
 以下URLでサンプルコードを実際に動かしているので、必要に応じてご参照ください。
 
-サンプルページは後ほどURLを共有
-
 [リポジトリ](https://github.com/nemtus/symbol-sample-react)
 
 [サンプルページ](https://symbol-sample-react.nemtus.com/)
