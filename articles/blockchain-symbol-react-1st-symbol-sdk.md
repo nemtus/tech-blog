@@ -132,6 +132,53 @@ $ npm start
 
 ## Tailwind CSS導入
 
+ここはCreate React Appのバージョンが5以上の方は次の方法になります。
+5になってから簡単に設定できるようになりましたので、こちらをお試しください。
+
+[5以上の方](https://tailwindcss.com/docs/guides/create-react-app)
+
+・Reactのプロジェクトを作成
+
+``` Terminal
+npx create-react-app my-project
+cd my-project
+```
+
+・TailwindCSSの設定と初期化
+
+``` Terminal
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+・TailwindCssの設定
+
+``` tailwind.config.js
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+・index.cssの設定
+
+``` index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+``` terminal
+npm run start
+```
+
+ーーーー4以前の方はこちらになります。ーーーー
+
 必要なモジュールのインストール
 
 ```sh:terminal
@@ -679,7 +726,7 @@ import React from 'react'
 const CreateFromPrivateKey = () => {
   return (
     <div>
-      
+
     </div>
   )
 }
@@ -1012,7 +1059,7 @@ onChangeのプロパティを実行して
 その中でe.target.valueが入力した内容になっています。
 
 ``` tsx:src/components/CreateFromPrivateKey.tsx
-<input 
+<input
   onChange={(e) => setPrivateKey(e.target.value)}
   className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" />
 ```
@@ -1107,7 +1154,7 @@ const CreateFromPrivateKey = () => {
   }
   return (
     <div>
-      <input 
+      <input
       onChange={(e) => setPrivateKey(e.target.value)}
       className="shadow rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" />
       <br />
