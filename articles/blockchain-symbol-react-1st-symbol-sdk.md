@@ -130,52 +130,31 @@ $ npm start
 [ここまでのURL](https://github.com/nemtus/symbol-sample-react)
 
 
+## (追記2020年7月7日)ダウングレード対応
+現在react-scriptsがversion5になっています。
+
+[react-scripts](https://www.npmjs.com/package/react-scripts)
+
+こちらversionが5の状態ですとcrypto周りでエラーが発生します。（コメントいただいた方に感謝です）
+
+ですので、色々先駆者がいて回避策とかもあるみたいですが、ここは一番簡単なreact-scriptを4のバージョンに下げます
+
+ですのでpackage.jsonのreact-scriptの項目を4.0.3に変更してください。
+
+``` sh:package.json
+    "react-scripts": "4.0.3",
+```
+
+そしてその後にnpm installをしていただくとreact-scriptsのバージョンは4に変わります。
+
+``` sh:terminal
+$ npm install
+```
+
 ## Tailwind CSS導入
 
-ここはCreate React Appのバージョンが5以上の方は次の方法になります。
-5になってから簡単に設定できるようになりましたので、こちらをお試しください。
-
-[5以上の方](https://tailwindcss.com/docs/guides/create-react-app)
-
-・Reactのプロジェクトを作成
-
-``` Terminal
-npx create-react-app my-project
-cd my-project
-```
-
-・TailwindCSSの設定と初期化
-
-``` Terminal
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-```
-
-・TailwindCssの設定
-
-``` tailwind.config.js
-module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-```
-
-・index.cssの設定
-
-``` index.css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-``` terminal
-npm run start
-```
+（追記2022年7月7日）
+react-scriptsをバージョン4にダウングレードするとTailwind CSSもダウングレード対応した方法でのインストールが必要です。
 
 ーーーー4以前の方はこちらになります。ーーーー
 
@@ -260,6 +239,8 @@ module.exports = {
 ```
 
 ![参考画像](/images/react-articles/index-css.png)
+
+## （追記2022年7月7日）コードフォーマッターの追加
 
 prettierの設定 : settingsでRequire Config + Format On Saveにチェック
 
