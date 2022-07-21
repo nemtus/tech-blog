@@ -216,7 +216,7 @@ tailwind.config.jsの中身をコピーしましょう
 
 ```js:tailwind.config.js
 module.exports = {
-    purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
     darkMode: false,
     theme: {
         extend: {},
