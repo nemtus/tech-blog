@@ -848,7 +848,7 @@ import fetch from 'node-fetch'; // Note: Use version 2.x
 
 #### Node.js x JavaScript環境(typescript-fetch版)
 
-<details>
+:::details サンプルコード
 
 ```javascript: examples/nodejs-javascript/api/NodeRoutesApi/getNodeInfo.js
 const symbolSdk = require('@nemtus/symbol-sdk-openapi-generator-typescript-fetch');
@@ -881,11 +881,11 @@ const fetch = require('node-fetch');
 
 ```
 
-</details>
+:::
 
 #### Browser x CDN環境(typescript-fetch版)
 
-<details>
+:::details サンプルコード
 
 ```html
 <!DOCTYPE html>
@@ -929,7 +929,7 @@ const fetch = require('node-fetch');
 
 ```
 
-</details>
+:::
 
 ## 今後の展望
 
