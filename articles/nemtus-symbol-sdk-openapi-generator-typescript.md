@@ -37,9 +37,7 @@ Symbolブロックチェーンの特徴の一つとして、REST APIを用いた
 
 この部分をJavaScript/TypeScript向けのSDK(GitHub: [https://github.com/symbol/symbol-sdk-typescript-javascript](https://github.com/symbol/symbol-sdk-typescript-javascript), npm: [https://www.npmjs.com/package/symbol-sdk/v/2.0.1](https://www.npmjs.com/package/symbol-sdk/v/2.0.1))が力強くサポートしてくれていたのですが、コア開発チームの方針変更により、このSDK(=以降旧公式SDKと呼ぶ)は非推奨となり、新たにJavaScript向けのシンプルなSDK(GitHub: [https://github.com/symbol/symbol/tree/dev/sdk/javascript](https://github.com/symbol/symbol/tree/dev/sdk/javascript), npm: [https://www.npmjs.com/package/symbol-sdk/v/3.0.0](https://www.npmjs.com/package/symbol-sdk/v/3.0.0)=以降新公式SDKと呼ぶ)の開発とメンテナンスがコア開発チームによって進められることになりました。
 
-結果的に、新公式SDKの今後の開発ターゲットにはTypeScript向け実装や、REST API clientの実装等が入らないこととなり、REST APIから得られたレスポンスをTypeScriptで型付きで扱うには、非推奨扱いの旧公式SDKを一定のリスクを許容して使い続けるか、各自で何とかするかの選択を迫られることになりました。
-
-オフィシャルに非推奨扱いの旧公式SDKを使い続けることにはやはりリスクがあります。そのため、各自で何とかする方法の一つとして、OpenAPI形式のSchemaの情報を元に、OpenAPI Generatorを用いてTypeScript向けにREST API clientを自動生成し、npmパッケージとして公開することで、旧公式SDKのTypeScript向けREST API client相当の機能を代替することを第一目標として、[NEMTUS](https://nemtus.com/)にて取組を始めました。
+そこで、REST APIから得られたレスポンスをTypeScriptで型付きで扱えるようにするため、OpenAPI形式のSchemaの情報を元に、OpenAPI Generatorを用いてTypeScript向けにREST API clientを自動生成し、npmパッケージとして公開することで、旧公式SDKのTypeScript向けREST API client相当の機能を代替することを第一目標として、[NEMTUS](https://nemtus.com/)にて取組を始めました。
 
 ## アーキテクチャ
 
@@ -526,7 +524,7 @@ requestParametersを指定する必要がない場合のサンプルコードを
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-axios@0.1.0/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-axios@latest/index.min.js"></script>
   </head>
   <body>
     <script>
@@ -574,7 +572,7 @@ requestParametersを指定する必要がある場合は以下のようになり
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-axios@0.1.0/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-axios@latest/index.min.js"></script>
   </head>
   <body>
     <script>
@@ -838,7 +836,7 @@ import fetch from 'node-fetch'; // Note: Use version 2.x
 
 まとめるとtypescript-axios版と比べて、typescript-fetch版には以下のような違いがあるようでした。
 
-- Node.js環境等の非ブラウザ環境ではfetchを置き換えてやる必要があること
+- Node.js v18 以前では fetch が存在しない為、fetchを置き換えてやる必要があること
 - requestParametersが必要な場合、その型の名前が、typescript-axios版は`HogeRoutesApiGetFugaRequest`的な型の名前だったのに対し、typescript-fetch版は`GetFugaRequest`的な型の名前になっていること
 - レスポンスの型がそのままData Type Objectになっていること
 
@@ -895,7 +893,7 @@ const fetch = require('node-fetch');
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-fetch@0.1.0/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-fetch@latest/index.min.js"></script>
   </head>
   <body>
     <script>
