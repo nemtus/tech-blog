@@ -526,7 +526,7 @@ requestParametersを指定する必要がない場合のサンプルコードを
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-axios@0.1.0/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-axios@latest/index.min.js"></script>
   </head>
   <body>
     <script>
@@ -574,7 +574,7 @@ requestParametersを指定する必要がある場合は以下のようになり
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-axios@0.1.0/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-axios@latest/index.min.js"></script>
   </head>
   <body>
     <script>
@@ -838,7 +838,7 @@ import fetch from 'node-fetch'; // Note: Use version 2.x
 
 まとめるとtypescript-axios版と比べて、typescript-fetch版には以下のような違いがあるようでした。
 
-- Node.js環境等の非ブラウザ環境ではfetchを置き換えてやる必要があること
+- Node.js v18 以前では fetch が存在しない為、fetchを置き換えてやる必要があること
 - requestParametersが必要な場合、その型の名前が、typescript-axios版は`HogeRoutesApiGetFugaRequest`的な型の名前だったのに対し、typescript-fetch版は`GetFugaRequest`的な型の名前になっていること
 - レスポンスの型がそのままData Type Objectになっていること
 
@@ -895,7 +895,7 @@ const fetch = require('node-fetch');
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-fetch@0.1.0/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@nemtus/symbol-sdk-openapi-generator-typescript-fetch@latest/index.min.js"></script>
   </head>
   <body>
     <script>
