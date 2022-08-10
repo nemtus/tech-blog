@@ -37,9 +37,7 @@ Symbolブロックチェーンの特徴の一つとして、REST APIを用いた
 
 この部分をJavaScript/TypeScript向けのSDK(GitHub: [https://github.com/symbol/symbol-sdk-typescript-javascript](https://github.com/symbol/symbol-sdk-typescript-javascript), npm: [https://www.npmjs.com/package/symbol-sdk/v/2.0.1](https://www.npmjs.com/package/symbol-sdk/v/2.0.1))が力強くサポートしてくれていたのですが、コア開発チームの方針変更により、このSDK(=以降旧公式SDKと呼ぶ)は非推奨となり、新たにJavaScript向けのシンプルなSDK(GitHub: [https://github.com/symbol/symbol/tree/dev/sdk/javascript](https://github.com/symbol/symbol/tree/dev/sdk/javascript), npm: [https://www.npmjs.com/package/symbol-sdk/v/3.0.0](https://www.npmjs.com/package/symbol-sdk/v/3.0.0)=以降新公式SDKと呼ぶ)の開発とメンテナンスがコア開発チームによって進められることになりました。
 
-結果的に、新公式SDKの今後の開発ターゲットにはTypeScript向け実装や、REST API clientの実装等が入らないこととなり、REST APIから得られたレスポンスをTypeScriptで型付きで扱うには、非推奨扱いの旧公式SDKを一定のリスクを許容して使い続けるか、各自で何とかするかの選択を迫られることになりました。
-
-オフィシャルに非推奨扱いの旧公式SDKを使い続けることにはやはりリスクがあります。そのため、各自で何とかする方法の一つとして、OpenAPI形式のSchemaの情報を元に、OpenAPI Generatorを用いてTypeScript向けにREST API clientを自動生成し、npmパッケージとして公開することで、旧公式SDKのTypeScript向けREST API client相当の機能を代替することを第一目標として、[NEMTUS](https://nemtus.com/)にて取組を始めました。
+そこで、REST APIから得られたレスポンスをTypeScriptで型付きで扱えるようにするため、OpenAPI形式のSchemaの情報を元に、OpenAPI Generatorを用いてTypeScript向けにREST API clientを自動生成し、npmパッケージとして公開することで、旧公式SDKのTypeScript向けREST API client相当の機能を代替することを第一目標として、[NEMTUS](https://nemtus.com/)にて取組を始めました。
 
 ## アーキテクチャ
 
