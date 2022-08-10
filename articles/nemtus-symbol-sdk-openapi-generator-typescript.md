@@ -10,7 +10,7 @@ published: true
 
 ## 要約
 
-この記事では、[OpenAPI Generator](https://openapi-generator.tech/)を用いてTypeScript向けにSymbolブロックチェーンのREST API clientを自動生成し、CommonJS/ES Modules両対応のDual packageとしてnpmパッケージを公開すると同時にwebpackでCDN用のビルドファイルも同梱してCDNからもSDKを使用できるようにした方法を解説します。
+この記事では、[OpenAPI Generator](https://openapi-generator.tech/)を用いてTypeScript向けにSymbolブロックチェーンのREST API clientを自動生成し、CommonJS/ES Modules両対応のDual packageとしてnpmパッケージを公開すると同時に、webpackでCDN用のビルドファイルも同梱してCDNからもSDKを使用できるようにした方法を解説します。
 
 また、作成したSDKの使い方についてもサンプルコードを交えて紹介します。
 
@@ -516,7 +516,7 @@ cd examples/browser-cdn
 
 requestParametersを指定する必要がない場合のサンプルコードを試しに実行してみましょう。
 
-以下コードのhtmlファイルをChrome等のブラウザで直接開いて開発者ツールのconsoleに結果が表示されているか確認してみましょう。
+以下コードのhtmlファイルをChrome等のブラウザで直接開いて、開発者ツールのconsoleに結果が表示されているか確認してみましょう。
 
 ```html:examples/browser-cdn/api/NodeRoutesApi/getNodeInfo.html
 <!DOCTYPE html>
@@ -935,7 +935,7 @@ const fetch = require('node-fetch');
 
 元となっているSchemaをがっちり検証したわけではなく、ふわっと自動生成コードを作っただけといったレベル感ではありますが、第一目標としていた型支援の効くREST API clientという点では、ある程度網羅できたかなと感じています。
 
-今後は以下のような取組を進めながら、Symbolブロックチェーンを用いたフロントエンド開発を、よりスムーズに進めていけるようなエコシステムの発展を、コア開発者やオフィシャルなレポジトリ上の実装のみに頼らず、我々コミュニティの側からも推進していけるよう、継続的に活動していきたいと考えています。
+今後は以下のような取組を進めながら、Symbolブロックチェーンを用いたフロントエンド開発について、よりスムーズに進めていけるようなエコシステムの発展を目指し、コア開発者やオフィシャルなレポジトリ上の実装のみに頼らず、我々コミュニティの側からも推進していけるよう、継続的に活動していきたいと考えています。
 
 SDK開発の計画のスプレッドシート
 [https://docs.google.com/spreadsheets/d/1s-F-Wy43R4JVeqzKB2gtVJZR_kpYXZIN2oAuh1CIyas/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1s-F-Wy43R4JVeqzKB2gtVJZR_kpYXZIN2oAuh1CIyas/edit?usp=sharing)
@@ -943,7 +943,7 @@ SDK開発の計画のスプレッドシート
 明確なマイルストーンを設けて計画的に進めていきたいと考えているもの
 
 1. v0.1.0 ... 型支援の効くREST API clientの実装。今回の記事で紹介させてもらった段階である程度網羅できた認識。
-2. v0.2.0 ... REST APIレスポンスの中で、データ形式の変換が必要で、新公式SDKで直接定義されていなかったり複雑な変換が必要な処理をwrapして提供する。
+2. v0.2.0 ... REST APIレスポンスの中で、データ形式の変換が必要で、新公式SDKで直接定義されていなかったり複雑な変換が必要だったりする処理をwrapして提供する。
 3. v1.0.0-alpha.1 ... トランザクションを送信するためのデータを生成する部分を型支援が効くようにする。(ただし、手作業で型を実装するのではなく、既存のデータから上手く自動生成できるような枠組みにしたい。)
 
 常に少しずつ追加や改善を進めていくもの
