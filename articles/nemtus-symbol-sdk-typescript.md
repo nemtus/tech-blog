@@ -405,10 +405,10 @@ const faucetAddressString = "TDMYLKCTEVPSRPTG4UXW47IQPCYNLW2OVWZMLGY";
 
 このようにトランザクションを送信する際は、対象アカウントのWalletを開いておくと、トランザクションが送信されて一旦未承認状態になった時に「チーン」という音が鳴り、トランザクションが1confの承認状態になった時に「ピコーン」という音が鳴るでしょう。(個人的には開発が上手く行きWalletでトランザクションが飛び交う効果音がにぎやかに鳴り響くと楽しくなってきます。)サンプルコードにはコメントを比較的多めに書いておいたので、どこで何をしているかはある程度確認できるかなと思います。もし上手く行かないところがあったら、GitHubや本記事末尾で紹介しているDiscord等でお気軽にコメントください。
 
-<details>
+:::details 実行時のログの例
 
 ```shell
-symbol-sdk-typescript-sample-1$ npx ts-node send-transfer-transaction.ts 
+~/symbol-sdk-typescript-sample-1$ npx ts-node send-transfer-transaction.ts 
 npm WARN config init.author.name Use `--init-author-name` instead.
 npm WARN config init.author.email Use `--init-author-email` instead.
 40EED5433899E2EB1FB33A864CCEDB9D7F5F42A59561F1B4341DE3751030B85F
@@ -662,11 +662,11 @@ wait for finalized block. transactionHeight is 653699 blockHeight is 653704.
 connection closed
 ```
 
-</details>
+:::
 
 ## まとめ
 
-TypeScript向けREST API clientと新公式SDKの(簡易的ではあるものの)TypeScript化されたnpmパッケージが揃ったので、新公式SDKを使ってTypeScript環境でのフロントエンド開発がだいぶ行いやすくなるのではないかと思います。
+これで、TypeScript向けREST API clientと新公式SDKの(簡易的ではあるものの)TypeScript化されたnpmパッケージが揃ったので、新公式SDKの思想に沿ったツールを使ってTypeScript環境でのフロントエンド開発がだいぶ行いやすくなるのではないかと思います。
 
 しかし、サンプルコードを見て頂くと、ところどころ、TypeScript的に意識のあまり高くない書き方で問題を回避しているところがあり、今の方法は簡易的なTypeScript化の限界があるかもしれません。とはいえ、JSDocでコメントを書いてあげることで改善できる部分もあるかもしれないので、そういう部分は新公式SDKの方に直接Pull Request送るような活動もできるといいなあと個人的には思っています。
 
