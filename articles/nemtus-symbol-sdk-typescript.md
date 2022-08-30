@@ -30,7 +30,7 @@ https://www.typescriptlang.org/ja/docs/handbook/declaration-files/dts-from-js.ht
 
 https://zenn.dev/nemtus/articles/nemtus-symbol-sdk-openapi-generator-typescript
 
-SymbolブロックチェーンのJavaScript向けSDKは、version2系のTypeScript向けSDKが非推奨となり、version3系のシンプルでコア領域にスコープを絞ったJavaScript向けSDKの開発とメンテナンスがコア開発チームによって進められています。
+SymbolブロックチェーンのJavaScript向けSDKは、version2系のTypeScript/JavaScript向けSDKが非推奨となり、version3系のシンプルでコア領域にスコープを絞ったJavaScript向けSDKの開発とメンテナンスがコア開発チームによって進められています。
 
 そのversion3系の新しいSDKはJavaScriptで書かれているため、素直にTypeScript向け環境で使おうとすると、`モジュール '***' またはそれに対応する型宣言が見つかりません。`といったエラーになります。TypeScriptが大幅に普及してきたモダンなフロントエンド開発の環境において、この状況はあまり好ましいものではありませんでした。
 
@@ -78,7 +78,7 @@ https://www.typescriptlang.org/ja/docs/handbook/declaration-files/dts-from-js.ht
 3. 今回作成したTypeScript向けSDK(アカウント情報のハンドリング、トランザクションデータ作成、署名等) ... [@nemtus/symbol-sdk-typescript](https://www.npmjs.com/package/@nemtus/symbol-sdk-typescript)
 4. WebSocketを使用するため ... [ws](https://www.npmjs.com/package/ws)
 5. REST API clientで使用するため ... [axios](https://www.npmjs.com/package/axios)
-6. 秘密鍵をソースコードに直接書かずに環境変数として扱うため ... [dotenv](https://www.npmjs.com/package/dotenv)
+6. 秘密鍵をソースコードに直接書かずに環境変数的に扱うため ... [dotenv](https://www.npmjs.com/package/dotenv)
 
 以下コマンドでインストールします。
 
@@ -409,8 +409,7 @@ const faucetAddressString = "TDMYLKCTEVPSRPTG4UXW47IQPCYNLW2OVWZMLGY";
 
 ```shell
 ~/symbol-sdk-typescript-sample-1$ npx ts-node send-transfer-transaction.ts 
-npm WARN config init.author.name Use `--init-author-name` instead.
-npm WARN config init.author.email Use `--init-author-email` instead.
+
 40EED5433899E2EB1FB33A864CCEDB9D7F5F42A59561F1B4341DE3751030B85F
 https://testnet.symbol.fyi/transactions/40EED5433899E2EB1FB33A864CCEDB9D7F5F42A59561F1B4341DE3751030B85F
 {"payload": "B00000000000000008B788D279A618F169687225327E5721D0D6A2738F10F53A82347310E6CCD4928AA6C8705E6219BCE50E76D1BD5D499567C97E2390C6398689DEFE60EB90A506ECF3FF68E017A83528A0A361F1F1EE91D761B5E34008AD9474870D54F5C4D0680000000001985441C044000000000000F64B73920500000098D985A853255F28BE66E52F6E7D1078B0D5DB4EADB2C59B0000010000000000C8B6532DDB16843A40420F0000000000"}
