@@ -8,7 +8,7 @@ published: true
 
 ## 要約
 
-この記事では、[@nemtus/symbol-sdk-typescript](https://github.com/nemtus/symbol/tree/dev/sdk/javascript)を使って、Symbolブロックチェーンでトランザクションを送信するためのサンプルコードを紹介します。
+この記事では、[@nemtus/symbol-sdk-typescript](https://github.com/nemtus/symbol/tree/dev/sdk/javascript)を使って、Symbolブロックチェーンでアグリゲートボンデッドトランザクション(Aggregate Bonded Transaction)を送信するためのサンプルコードを紹介します。
 
 詳細については、記事内のサンプルコードをご参照ください。
 
