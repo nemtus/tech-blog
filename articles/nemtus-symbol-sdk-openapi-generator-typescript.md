@@ -4,6 +4,7 @@ emoji: "⛓"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["blockchain", "symbol", "openapigenerator", "typescript", "npm"]
 published: true
+publication_name: "nemtus_official"
 ---
 
 # SymbolブロックチェーンのTypeScript向けREST API clientコードの自動生成とDual package(CommonJS/ES Modules)＆CDN対応済npmパッケージ公開の紹介

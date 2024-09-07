@@ -4,6 +4,7 @@ emoji: "⛓"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["blockchain", "symbol", "typescript", "javascript", "npm"]
 published: true
+publication_name: "nemtus_official"
 ---
 
 # SymbolブロックチェーンのJavaScript向け新公式SDKのTypeScript化及びトランザクション送信サンプルコードの紹介

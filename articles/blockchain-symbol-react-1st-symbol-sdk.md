@@ -4,6 +4,7 @@ emoji: "⛓"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["blockchain", "symbol", "react", "typescript", "rxjs"]
 published: true
+publication_name: "nemtus_official"
 ---
 
 
