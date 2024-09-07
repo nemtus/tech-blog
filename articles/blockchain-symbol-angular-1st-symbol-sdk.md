@@ -4,6 +4,7 @@ emoji: "⛓"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["blockchain", "symbol", "angular", "typescript", "rxjs"]
 published: true
+publication_name: "nemtus_official"
 ---
 
 # Angularでsymbol-sdkを使うための環境構築
